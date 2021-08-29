@@ -9,37 +9,37 @@ import {
 } from "Domain/Dashboard/DashboardSlice";
 
 const Timer = () => {
-  const { cycleRunning, breakStarted, elapsedSeconds } =
+  const { cycleRunning, breakStarted, remainingSeconds } =
     useAppSelector(dashboardSelector);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    let myInterval = setInterval(() => {
-      if (cycleRunning) {
-        if (elapsedSeconds === 0) {
-          clearInterval(myInterval);
-          dispatch(completeCycle());
-        }
+  //   useEffect(() => {
+  //     let myInterval = setInterval(() => {
+  //       if (cycleRunning) {
+  //         if (remainingSeconds === 0) {
+  //           clearInterval(myInterval);
+  //           dispatch(completeCycle());
+  //         }
 
-        dispatch(elapseSecond());
-      }
+  //         dispatch(elapseSecond());
+  //       }
 
-      if (breakStarted) {
-        if (elapsedSeconds === 0) {
-          clearInterval(myInterval);
-          dispatch(completeBreak());
-        }
+  //       if (breakStarted) {
+  //         if (remainingSeconds === 0) {
+  //           clearInterval(myInterval);
+  //           dispatch(completeBreak());
+  //         }
 
-        dispatch(elapseSecond());
-      }
-    }, 1000);
-    return () => {
-      clearInterval(myInterval);
-    };
-  }, [dispatch, cycleRunning, breakStarted, elapsedSeconds]);
+  //         dispatch(elapseSecond());
+  //       }
+  //     }, 1000);
+  //     return () => {
+  //       clearInterval(myInterval);
+  //     };
+  //   }, [dispatch, cycleRunning, breakStarted, remainingSeconds]);
 
-  const minutes = Math.floor(elapsedSeconds / 60);
-  const seconds = elapsedSeconds - minutes * 60;
+  const minutes = Math.floor(remainingSeconds / 60);
+  const seconds = remainingSeconds - minutes * 60;
 
   return <>{`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</>;
 };

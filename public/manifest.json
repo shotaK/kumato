@@ -1,10 +1,10 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Kumato - Pomodoro Productivity extension",
   "version": "1.0",
 
   "description": "Flexible and customizable Pomodoro productivity extension",
-  "action": {
+  "browser_action": {
     "default_icon": "icon_48.png",
     "default_popup": "popup.html"
   },
@@ -18,5 +18,9 @@
     "128": "icon_128.png"
   },
 
-  "permissions": ["tabs", "storage"]
+  "permissions": ["tabs", "storage", "notifications", "background"],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
 }

@@ -9,7 +9,7 @@ import {
 } from "Services/StorageApi";
 
 export interface DashboardState {
-  elapsedSeconds: number;
+  remainingSeconds: number;
 
   cyclesCompleted: number;
   cycleDuration: number;
@@ -26,7 +26,7 @@ export interface DashboardState {
 }
 
 export const starterData: DashboardState = {
-  elapsedSeconds: 0,
+  remainingSeconds: 0,
 
   cyclesCompleted: 0,
   cycleDuration: 45,
@@ -78,15 +78,19 @@ export const dashboardSlice = createSlice({
     },
 
     elapseSecond: (state) => {
-      if (state.elapsedSeconds > 0) {
-        state.elapsedSeconds--;
+      if (state.remainingSeconds > 0) {
+        state.remainingSeconds--;
       }
     },
 
     startCycle: (state) => {
       state.cycleStarted = true;
       state.cycleRunning = true;
-      state.elapsedSeconds = state.cycleDuration * 60;
+      state.remainingSeconds = state.cycleDuration * 60;
+    },
+
+    changeRemainingSeconds: (state, action) => {
+      state.remainingSeconds = action.payload;
     },
 
     completeCycle: (state) => {
@@ -110,7 +114,7 @@ export const dashboardSlice = createSlice({
 
     startBreak: (state) => {
       state.breakStarted = true;
-      state.elapsedSeconds = state.breakDuration * 60;
+      state.remainingSeconds = state.breakDuration * 60;
     },
 
     completeBreak: (state) => {
@@ -185,6 +189,7 @@ export const {
   deleteWebsite,
   updateDefaultStorageDataFetched,
   provideDefaultStorageData,
+  changeRemainingSeconds,
 } = dashboardSlice.actions;
 
 export const initializeData =

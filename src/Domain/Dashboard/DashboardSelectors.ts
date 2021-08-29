@@ -10,16 +10,16 @@ export const timeElapsedPercentageSelector = createSelector(
   ({
     cycleStarted,
     cycleDuration,
-    elapsedSeconds,
+    remainingSeconds,
     breakStarted,
     breakDuration,
   }) => {
     if (cycleStarted) {
-      return calcElapsedTimePercentage(elapsedSeconds, cycleDuration);
+      return calcElapsedTimePercentage(remainingSeconds, cycleDuration);
     }
 
     if (breakStarted) {
-      return calcElapsedTimePercentage(elapsedSeconds, breakDuration);
+      return calcElapsedTimePercentage(remainingSeconds, breakDuration);
     }
 
     return 0;

@@ -1,12 +1,13 @@
-import { starterData } from "Domain/Dashboard/DashboardSlice";
 import get from "lodash.get";
 
-const chromeApi = get(global, "chrome.storage")
+import { starterData } from "Domain/Dashboard/DashboardSlice";
+
+export const chromeApi = get(global, "chrome.storage")
   ? get(global, "chrome")
   : {
       runtime: { lastError: null },
       storage: {
-        sync: {
+        local: {
           get: (key: string, callback: (values: any) => any) => {
             callback({
               blockableWebsites: [],
@@ -18,16 +19,22 @@ const chromeApi = get(global, "chrome.storage")
               cycleStarted: true,
               cyclesCompleted: 10,
               defaultStorageDataFetched: false,
+              remainingSeconds: 150,
             });
           },
           set: () => {},
+        },
+        onChanged: {
+          addListener: (callback = (changes: any) => {}) => {
+            callback({ remainingSeconds: { newValue: 2699, oldValue: 2700 } });
+          },
         },
       },
     };
 
 export const getAllStorageSyncData = () => {
   return new Promise((resolve, reject) => {
-    chromeApi.storage.sync.get(null, (items: any) => {
+    chromeApi.storage.local.get(null, (items: any) => {
       if (chromeApi.runtime.lastError) {
         return reject(chromeApi.runtime.lastError);
       }
@@ -38,7 +45,7 @@ export const getAllStorageSyncData = () => {
 
 export const setDefaultAllStorageSyncData = () => {
   return new Promise((resolve, reject) => {
-    chromeApi.storage.sync.set(starterData, () => {
+    chromeApi.storage.local.set(starterData, () => {
       resolve(starterData);
     });
   });
@@ -46,7 +53,7 @@ export const setDefaultAllStorageSyncData = () => {
 
 export const setStorageSyncData = (data: Record<string, any>) => {
   return new Promise((resolve, reject) => {
-    chromeApi.storage.sync.set(data, () => {
+    chromeApi.storage.local.set(data, () => {
       resolve(data);
     });
   });
@@ -54,7 +61,7 @@ export const setStorageSyncData = (data: Record<string, any>) => {
 
 export const getStorageSyncData = (key: string) => {
   return new Promise((resolve, reject) => {
-    chromeApi.storage.sync.get([key], (result: any) => {
+    chromeApi.storage.local.get([key], (result: any) => {
       resolve(result.key);
     });
   });
