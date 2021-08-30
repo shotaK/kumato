@@ -10,6 +10,7 @@ import {
 
 export interface DashboardState {
   remainingSeconds: number;
+  currentRunDuration: number;
 
   cyclesCompleted: number;
   cycleDuration: number;
@@ -27,6 +28,7 @@ export interface DashboardState {
 
 export const starterData: DashboardState = {
   remainingSeconds: 0,
+  currentRunDuration: 0,
 
   cyclesCompleted: 0,
   cycleDuration: 45,
@@ -87,10 +89,22 @@ export const dashboardSlice = createSlice({
       state.cycleStarted = true;
       state.cycleRunning = true;
       state.remainingSeconds = state.cycleDuration * 60;
+      state.currentRunDuration = state.cycleDuration * 60;
     },
 
     changeRemainingSeconds: (state, action) => {
       state.remainingSeconds = action.payload;
+
+      if (state.cycleStarted) {
+        state.cycleStarted = false;
+        state.cycleRunning = false;
+        state.cyclesCompleted++;
+      }
+
+      if (state.breakStarted) {
+        state.breakStarted = false;
+        state.breakCompleted++;
+      }
     },
 
     completeCycle: (state) => {
@@ -115,6 +129,7 @@ export const dashboardSlice = createSlice({
     startBreak: (state) => {
       state.breakStarted = true;
       state.remainingSeconds = state.breakDuration * 60;
+      state.currentRunDuration = state.breakDuration * 60;
     },
 
     completeBreak: (state) => {

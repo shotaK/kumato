@@ -5,7 +5,6 @@ import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
 import { useAppSelector } from "Domain/Hooks";
 import { initializeData } from "Domain/Dashboard/DashboardSlice";
 import { useAppThunkDispatch } from "Domain/Hooks";
-import useTicker from "Hooks/useTicker";
 import useStorageChange from "Hooks/useStorageChange";
 
 import "./App.css";
@@ -15,7 +14,6 @@ function App() {
 
   const { defaultStorageDataFetched } = useAppSelector(dashboardSelector);
 
-  useTicker();
   useStorageChange();
 
   useEffect(() => {
