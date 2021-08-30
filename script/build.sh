@@ -14,7 +14,7 @@ build() {
     cp -r build/* dist
 
     mv dist/index.html dist/popup.html
-    mv publick/background.js dist/background.js
+    cp public/background.js dist/background.js
 }
 
 build

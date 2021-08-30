@@ -7,19 +7,13 @@ export const dashboardSelector = (state: RootState) => state.dashboard;
 
 export const timeElapsedPercentageSelector = createSelector(
   dashboardSelector,
-  ({
-    cycleStarted,
-    cycleDuration,
-    remainingSeconds,
-    breakStarted,
-    breakDuration,
-  }) => {
+  ({ cycleStarted, remainingSeconds, currentRunDuration, breakStarted }) => {
     if (cycleStarted) {
-      return calcElapsedTimePercentage(remainingSeconds, cycleDuration);
+      return calcElapsedTimePercentage(remainingSeconds, currentRunDuration);
     }
 
     if (breakStarted) {
-      return calcElapsedTimePercentage(remainingSeconds, breakDuration);
+      return calcElapsedTimePercentage(remainingSeconds, currentRunDuration);
     }
 
     return 0;

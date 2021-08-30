@@ -89,21 +89,23 @@ export const dashboardSlice = createSlice({
       state.cycleStarted = true;
       state.cycleRunning = true;
       state.remainingSeconds = state.cycleDuration * 60;
-      state.currentRunDuration = state.cycleDuration * 60;
+      state.currentRunDuration = state.cycleDuration;
     },
 
     changeRemainingSeconds: (state, action) => {
       state.remainingSeconds = action.payload;
 
-      if (state.cycleStarted) {
-        state.cycleStarted = false;
-        state.cycleRunning = false;
-        state.cyclesCompleted++;
-      }
+      if (state.remainingSeconds === 0) {
+        if (state.cycleStarted) {
+          state.cycleStarted = false;
+          state.cycleRunning = false;
+          state.cyclesCompleted++;
+        }
 
-      if (state.breakStarted) {
-        state.breakStarted = false;
-        state.breakCompleted++;
+        if (state.breakStarted) {
+          state.breakStarted = false;
+          state.breakCompleted++;
+        }
       }
     },
 
@@ -129,7 +131,7 @@ export const dashboardSlice = createSlice({
     startBreak: (state) => {
       state.breakStarted = true;
       state.remainingSeconds = state.breakDuration * 60;
-      state.currentRunDuration = state.breakDuration * 60;
+      state.currentRunDuration = state.breakDuration;
     },
 
     completeBreak: (state) => {
@@ -210,8 +212,6 @@ export const {
 export const initializeData =
   () => async (dispatch: ThunkAppDispatch, getState: any) => {
     const allStorageData = await getAllStorageSyncData();
-
-    console.log(allStorageData);
 
     if (isEmpty(allStorageData)) {
       await setDefaultAllStorageSyncData();

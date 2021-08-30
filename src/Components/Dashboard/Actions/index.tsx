@@ -4,6 +4,7 @@ import {
   PlayIcon,
   CheckCircleIcon,
   XIcon,
+  SparklesIcon,
 } from "@heroicons/react/outline";
 
 import ActionButton from "Components/Dashboard/Actions/ActionButton";
@@ -19,7 +20,6 @@ import {
   startBreak,
   startCycle,
 } from "Domain/Dashboard/DashboardSlice";
-import CoffeeIcon from "Components/Dashboard/Actions/CoffeeIcon";
 
 const Actions = () => {
   const dispatch = useAppDispatch();
@@ -99,7 +99,7 @@ const Actions = () => {
             />
             {Boolean(cyclesCompleted) && (
               <ActionButton
-                icon={CoffeeIcon}
+                icon={SparklesIcon}
                 text="Start Break"
                 className="bg-fuchsia-500 hover:bg-fuchsia-600 px-7"
                 onClick={() => dispatch(startBreak())}

@@ -14,12 +14,12 @@ const InputNumber = ({ value, onUpdate, ...rest }: InputNumberProps) => {
   const onChange = (e: { target: HTMLInputElement }) => {
     const re = /^[0-9\b]+$/;
     const { value: targetValue } = e.target;
-    if (targetValue === "" || re.test(targetValue)) {
-      setValue(targetValue);
-      if (onUpdate) {
-        onUpdate(targetValue);
-      }
+    // if (targetValue === "" || re.test(targetValue)) {
+    setValue(targetValue);
+    if (onUpdate) {
+      onUpdate(targetValue);
     }
+    // }
   };
 
   return <Input value={inputValue} onChange={onChange} {...rest} />;

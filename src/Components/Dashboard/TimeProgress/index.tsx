@@ -7,7 +7,7 @@ const TimeProgress = () => {
   const timeElapsedPercentage = useAppSelector(timeElapsedPercentageSelector);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center relative">
       <Pie title={<Timer />} percentage={timeElapsedPercentage} />
     </div>
   );

@@ -9,8 +9,6 @@ const useStorageChange = () => {
 
   useEffect(() => {
     chromeApi.storage.onChanged.addListener((changes: any) => {
-      console.log(changes);
-
       if (changes?.remainingSeconds) {
         const { newValue } = changes.remainingSeconds;
 

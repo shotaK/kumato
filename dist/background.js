@@ -35,23 +35,17 @@ const getRemainingBadgeTime = (timeSeconds) => {
   return minutes.toString() + "m";
 };
 
-// items
-// blockableWebsites: [];
-// breakCompleted: 0;
-// breakDuration: 15;
-// breakStarted: false;
-// cycleDuration: 45;
-// cycleRunning: true;
-// cycleStarted: true;
-// cyclesCompleted: 8;
-// remainingSeconds: 2700
-// key: 0;
-
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-  console.log(changes);
   chrome.storage.local.get(
     null,
-    ({ cycleDuration, remainingSeconds, cycleStarted, breakStarted }) => {
+    ({
+      cycleDuration,
+      remainingSeconds,
+      cycleStarted,
+      breakStarted,
+      cyclesCompleted,
+      breakCompleted,
+    }) => {
       for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
         if (key === "cycleStarted") {
           // Start cycle
@@ -60,7 +54,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
             startTimer();
           }
 
-          // Start completed or discarded
+          // Make cycle completed or discarded
           if (oldValue && !newValue) {
             remainingSecondsLocal = 0;
             stopTimer();
@@ -74,7 +68,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
             startTimer();
           }
 
-          // Start completed or discarded
+          // Make break completed or discarded
           if (oldValue && !newValue) {
             remainingSecondsLocal = 0;
             stopTimer();
@@ -94,6 +88,24 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         }
 
         if (key === "remainingSeconds") {
+          // handle cycle or break end
+          if (newValue === 0) {
+            if (cycleStarted) {
+              chrome.storage.local.set({
+                cycleStarted: false,
+                cycleRunning: false,
+                cyclesCompleted: cyclesCompleted + 1,
+              });
+            }
+
+            if (breakStarted) {
+              chrome.storage.local.set({
+                breakStarted: false,
+                breakCompleted: breakCompleted + 1,
+              });
+            }
+          }
+          // Update badge
           if (oldValue !== newValue) {
             chrome.browserAction.setBadgeBackgroundColor({
               color: cycleStarted ? "#059669" : "#6D28D9",
