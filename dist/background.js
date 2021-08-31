@@ -35,11 +35,21 @@ const getRemainingBadgeTime = (timeSeconds) => {
   return minutes.toString() + "m";
 };
 
+const showNotification = (description) => {
+  const notificationOptions = {
+    type: "basic",
+    iconUrl: "icon_128.png",
+    title: "Kumato",
+    message: description,
+  };
+
+  chrome.notifications.create(notificationOptions);
+};
+
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   chrome.storage.local.get(
     null,
     ({
-      cycleDuration,
       remainingSeconds,
       cycleStarted,
       breakStarted,
@@ -61,6 +71,27 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           }
         }
 
+        if (key === "cycleRunning") {
+          // Pause cycle
+          if (oldValue && !newValue) {
+            stopTimer();
+          }
+
+          // Resume cycle
+          if (!oldValue && newValue) {
+            startTimer();
+          }
+        }
+
+        if (key === "cyclesCompleted") {
+          // Make break completed or discarded
+          if (oldValue < newValue) {
+            showNotification(
+              "Congratulations! Kumato cycle has been finished."
+            );
+          }
+        }
+
         if (key === "breakStarted") {
           // Start cycle
           if (!oldValue && newValue) {
@@ -72,18 +103,14 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           if (oldValue && !newValue) {
             remainingSecondsLocal = 0;
             stopTimer();
+            showNotification("Break has been finished.");
           }
         }
 
-        if (key === "cycleRunning") {
-          // Pause cycle
-          if (oldValue && !newValue) {
-            stopTimer();
-          }
-
-          // Resume cycle
-          if (!oldValue && newValue) {
-            startTimer();
+        if (key === "breakCompleted") {
+          // Make break completed or discarded
+          if (oldValue < newValue) {
+            showNotification("Break has been finished.");
           }
         }
 

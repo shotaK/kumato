@@ -11,10 +11,12 @@ build() {
     craco build
 
     mkdir -p dist
-    cp -r build/* dist
+    mv build/* dist
+    rm -R build
 
     mv dist/index.html dist/popup.html
     cp public/background.js dist/background.js
+    cp public/content.js dist/content.js
 }
 
 build

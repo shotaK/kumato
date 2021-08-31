@@ -16,8 +16,10 @@ const AddField = () => {
   };
 
   const onWebsiteUrlAdd = () => {
-    setWebsiteUrl("");
-    dispatch(addWebsiteToBlock({ url: websiteUrl, isBlocked: true }));
+    if (websiteUrl) {
+      setWebsiteUrl("");
+      dispatch(addWebsiteToBlock({ url: websiteUrl, isBlocked: true }));
+    }
   };
 
   return (

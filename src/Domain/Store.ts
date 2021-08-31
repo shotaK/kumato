@@ -6,14 +6,11 @@ import {
 } from "@reduxjs/toolkit";
 
 import dashboardReducer from "Domain/Dashboard/DashboardSlice";
-import dataPersistorMiddleware from "Middlewares/dataPersistorMiddleware";
 
 export const store = configureStore({
   reducer: {
     dashboard: dashboardReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(dataPersistorMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

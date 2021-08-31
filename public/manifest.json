@@ -18,9 +18,19 @@
     "128": "icon_128.png"
   },
 
-  "permissions": ["tabs", "storage", "notifications", "background"],
+  "permissions": ["tabs", "storage", "notifications"],
 
   "background": {
     "scripts": ["background.js"]
-  }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+
+  "web_accessible_resources": ["/pageBlocked.html"]
 }
