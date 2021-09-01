@@ -83,15 +83,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           }
         }
 
-        if (key === "cyclesCompleted") {
-          // Show notification on cycle completed
-          if (oldValue < newValue) {
-            showNotification(
-              "Congratulations! Kumato cycle has been finished."
-            );
-          }
-        }
-
         if (key === "breakStarted") {
           // Start cycle
           if (!oldValue && newValue) {
@@ -106,13 +97,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           }
         }
 
-        if (key === "breakCompleted") {
-          // Show notification on break completed
-          if (oldValue < newValue) {
-            showNotification("Break has been finished.");
-          }
-        }
-
         if (key === "remainingSeconds") {
           // handle cycle or break end
           if (newValue === 0) {
@@ -122,6 +106,10 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
                 cycleRunning: false,
                 cyclesCompleted: cyclesCompleted + 1,
               });
+
+              showNotification(
+                "Congratulations! Kumato cycle has been finished."
+              );
             }
 
             if (breakStarted) {
@@ -129,6 +117,8 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
                 breakStarted: false,
                 breakCompleted: breakCompleted + 1,
               });
+
+              showNotification("Break has been finished.");
             }
           } else if (oldValue !== newValue) {
             chrome.browserAction.setBadgeBackgroundColor({
