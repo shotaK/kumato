@@ -84,7 +84,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         }
 
         if (key === "cyclesCompleted") {
-          // Make break completed or discarded
+          // Show notification on cycle completed
           if (oldValue < newValue) {
             showNotification(
               "Congratulations! Kumato cycle has been finished."
@@ -103,12 +103,11 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           if (oldValue && !newValue) {
             remainingSecondsLocal = 0;
             stopTimer();
-            showNotification("Break has been finished.");
           }
         }
 
         if (key === "breakCompleted") {
-          // Make break completed or discarded
+          // Show notification on break completed
           if (oldValue < newValue) {
             showNotification("Break has been finished.");
           }
@@ -131,9 +130,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
                 breakCompleted: breakCompleted + 1,
               });
             }
-          }
-          // Update badge
-          if (oldValue !== newValue) {
+          } else if (oldValue !== newValue) {
             chrome.browserAction.setBadgeBackgroundColor({
               color: cycleStarted ? "#059669" : "#6D28D9",
             });

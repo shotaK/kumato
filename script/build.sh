@@ -3,20 +3,21 @@
 build() {
     echo 'building react'
 
-    rm -rf dist/*
+    rm -rf extension/*
 
     export INLINE_RUNTIME_CHUNK=false
     export GENERATE_SOURCEMAP=false
 
     craco build
 
-    mkdir -p dist
-    mv build/* dist
+    mkdir -p extension
+    mv build/* extension
     rm -R build
 
-    mv dist/index.html dist/popup.html
-    cp public/background.js dist/background.js
-    cp public/content.js dist/content.js
+    mv extension/index.html extension/popup.html
+    mv extension/pageBlocked.html extension/pageBlocked.html
+    cp public/background.js extension/background.js
+    cp public/content.js extension/content.js
 }
 
 build
