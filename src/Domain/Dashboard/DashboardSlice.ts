@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import isEmpty from "lodash.isempty";
 
 import { WebsiteBlockable } from "Domain/Dashboard/Types";
-import { ThunkAppDispatch } from "Domain/Store";
+import { RootState, ThunkAppDispatch } from "Domain/Store";
 import {
   getAllStorageSyncData,
   setDefaultAllStorageSyncData,
+  setStorageSyncData,
 } from "Services/StorageApi";
 
 export interface DashboardState {
@@ -88,7 +89,6 @@ export const dashboardSlice = createSlice({
     startCycle: (state) => {
       state.cycleStarted = true;
       state.cycleRunning = true;
-      state.remainingSeconds = state.cycleDuration * 60;
       state.currentRunDuration = state.cycleDuration;
     },
 
@@ -130,7 +130,6 @@ export const dashboardSlice = createSlice({
 
     startBreak: (state) => {
       state.breakStarted = true;
-      state.remainingSeconds = state.breakDuration * 60;
       state.currentRunDuration = state.breakDuration;
     },
 
@@ -220,6 +219,22 @@ export const initializeData =
     }
 
     dispatch(updateDefaultStorageDataFetched(true));
+  };
+
+export const cycleStarter =
+  () => async (dispatch: ThunkAppDispatch, getState: any) => {
+    await setStorageSyncData({
+      remainingSeconds: getState().dashboard.cycleDuration * 60,
+    });
+    dispatch(startCycle());
+  };
+
+export const breakStarter =
+  () => async (dispatch: ThunkAppDispatch, getState: () => RootState) => {
+    await setStorageSyncData({
+      remainingSeconds: getState().dashboard.breakDuration * 60,
+    });
+    dispatch(startBreak());
   };
 
 export default dashboardSlice.reducer;

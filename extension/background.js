@@ -35,6 +35,15 @@ const getRemainingBadgeTime = (timeSeconds) => {
   return minutes.toString() + "m";
 };
 
+const setBadge = (value, color) => {
+  chrome.browserAction.setBadgeBackgroundColor({
+    color: color,
+  });
+  chrome.browserAction.setBadgeText({
+    text: getRemainingBadgeTime(value),
+  });
+};
+
 const showNotification = (description) => {
   const notificationOptions = {
     type: "basic",
@@ -46,7 +55,7 @@ const showNotification = (description) => {
   chrome.notifications.create(notificationOptions);
 };
 
-chrome.storage.onChanged.addListener(function (changes, namespace) {
+chrome.storage.onChanged.addListener(function (changes) {
   chrome.storage.local.get(
     null,
     ({
@@ -68,6 +77,9 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           if (oldValue && !newValue) {
             remainingSecondsLocal = 0;
             stopTimer();
+            chrome.storage.local.set({
+              remainingSeconds: 0,
+            });
           }
         }
 
@@ -94,6 +106,9 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           if (oldValue && !newValue) {
             remainingSecondsLocal = 0;
             stopTimer();
+            chrome.storage.local.set({
+              remainingSeconds: 0,
+            });
           }
         }
 
@@ -105,6 +120,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
                 cycleStarted: false,
                 cycleRunning: false,
                 cyclesCompleted: cyclesCompleted + 1,
+                remainingSeconds: 0,
               });
 
               showNotification(
@@ -116,17 +132,17 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
               chrome.storage.local.set({
                 breakStarted: false,
                 breakCompleted: breakCompleted + 1,
+                remainingSeconds: 0,
               });
 
               showNotification("Break has been finished.");
             }
           } else if (oldValue !== newValue) {
-            chrome.browserAction.setBadgeBackgroundColor({
-              color: cycleStarted ? "#059669" : "#6D28D9",
-            });
-            chrome.browserAction.setBadgeText({
-              text: getRemainingBadgeTime(newValue),
-            });
+            if (cycleStarted) {
+              setBadge(remainingSeconds, "#059669");
+            } else if (breakStarted) {
+              setBadge(remainingSeconds, "#6D28D9");
+            }
           }
         }
       }

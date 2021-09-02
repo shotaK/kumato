@@ -11,14 +11,14 @@ import ActionButton from "Components/Dashboard/Actions/ActionButton";
 import { useAppSelector, useAppDispatch } from "Domain/Hooks";
 import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
 import {
+  breakStarter,
   completeBreak,
   completeCycle,
+  cycleStarter,
   discardBreak,
   discardCycle,
   pauseCycle,
   resumeCycle,
-  startBreak,
-  startCycle,
 } from "Domain/Dashboard/DashboardSlice";
 
 const Actions = () => {
@@ -95,14 +95,16 @@ const Actions = () => {
               icon={PlayIcon}
               text="Start"
               className="bg-teal-500 hover:bg-teal-600 px-12"
-              onClick={() => dispatch(startCycle())}
+              onClick={() => {
+                dispatch(cycleStarter());
+              }}
             />
             {Boolean(cyclesCompleted) && (
               <ActionButton
                 icon={SparklesIcon}
                 text="Start Break"
                 className="bg-fuchsia-500 hover:bg-fuchsia-600 px-7"
-                onClick={() => dispatch(startBreak())}
+                onClick={() => dispatch(breakStarter())}
               />
             )}
           </>

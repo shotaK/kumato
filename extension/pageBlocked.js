@@ -135,18 +135,6 @@ const affirmations = [
     text: "I give myself permission to do what is right for me.",
   },
   {
-    text: "I am confident in my ability to [fill in the blank].",
-  },
-  {
-    text: "I use my time and talents to help others [fill in the blank].",
-  },
-  {
-    text: "What I love about myself is my ability to [fill in the blank].",
-  },
-  {
-    text: "I feel proud of myself when I [fill in the blank].",
-  },
-  {
     text: "I give myself space to grow and learn.",
   },
   {
@@ -163,12 +151,6 @@ const affirmations = [
   },
   {
     text: "My drive and ambition allow me to achieve my goals.",
-  },
-  {
-    text: "I share my talents with the world by [fill in the blank].",
-  },
-  {
-    text: "I am good at helping others to [fill in the blank].",
   },
   {
     text: "I am always headed in the right direction.",
@@ -190,9 +172,6 @@ const affirmations = [
   },
   {
     text: "I am becoming closer to my true self every day.",
-  },
-  {
-    text: "I am grateful to have people in my life who [fill in the blank].",
   },
   {
     text: "I am learning valuable lessons from myself every day.",
