@@ -17,7 +17,7 @@ const InputNumber = ({ value, onUpdate, ...rest }: InputNumberProps) => {
     if (targetValue === "" || re.test(targetValue)) {
       setValue(targetValue);
       if (onUpdate) {
-        onUpdate(targetValue);
+        onUpdate(Number(targetValue));
       }
     }
   };

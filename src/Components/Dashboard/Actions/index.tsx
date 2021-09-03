@@ -23,8 +23,14 @@ import {
 
 const Actions = () => {
   const dispatch = useAppDispatch();
-  const { cycleStarted, cycleRunning, cyclesCompleted, breakStarted } =
-    useAppSelector(dashboardSelector);
+  const {
+    cycleStarted,
+    cycleRunning,
+    cyclesCompleted,
+    breakStarted,
+    cycleDuration,
+    breakDuration,
+  } = useAppSelector(dashboardSelector);
 
   return (
     <div>
@@ -95,6 +101,7 @@ const Actions = () => {
               icon={PlayIcon}
               text="Start"
               className="bg-teal-500 hover:bg-teal-600 px-12"
+              disabled={!cycleDuration}
               onClick={() => {
                 dispatch(cycleStarter());
               }}
@@ -104,6 +111,7 @@ const Actions = () => {
                 icon={SparklesIcon}
                 text="Start Break"
                 className="bg-fuchsia-500 hover:bg-fuchsia-600 px-7"
+                disabled={!breakDuration}
                 onClick={() => dispatch(breakStarter())}
               />
             )}
