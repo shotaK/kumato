@@ -1,3 +1,9 @@
+# Kumato - Pomodoro productivity extension
+
+## The extension adds a Pomodoro timer to your browser. It was written and tested for Chrome browser. It is based on the [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) and is used to track your productivity.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
