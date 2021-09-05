@@ -8,6 +8,7 @@ import {
   setDefaultAllStorageSyncData,
   setStorageSyncData,
 } from "Services/StorageApi";
+import { getWebsiteIndex } from "Domain/Dashboard/Utils";
 
 export interface DashboardState {
   remainingSeconds: number;
@@ -147,24 +148,27 @@ export const dashboardSlice = createSlice({
     },
 
     blockWebsite: (state, action) => {
-      const websiteIndex = state.blockableWebsites.findIndex(
-        ({ url }) => url === action.payload
+      const websiteIndex = getWebsiteIndex(
+        state.blockableWebsites,
+        action.payload
       );
 
       state.blockableWebsites[websiteIndex].isBlocked = true;
     },
 
     unblockWebsite: (state, action) => {
-      const websiteIndex = state.blockableWebsites.findIndex(
-        ({ url }) => url === action.payload
+      const websiteIndex = getWebsiteIndex(
+        state.blockableWebsites,
+        action.payload
       );
 
       state.blockableWebsites[websiteIndex].isBlocked = false;
     },
 
     deleteWebsite: (state, action) => {
-      const websiteIndex = state.blockableWebsites.findIndex(
-        ({ url }) => url === action.payload
+      const websiteIndex = getWebsiteIndex(
+        state.blockableWebsites,
+        action.payload
       );
 
       state.blockableWebsites.splice(websiteIndex, 1);

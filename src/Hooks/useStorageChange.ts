@@ -8,13 +8,19 @@ const useStorageChange = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    chromeApi.storage.onChanged.addListener((changes: any) => {
-      if (changes?.remainingSeconds) {
-        const { newValue } = changes.remainingSeconds;
+    const storageListener = chromeApi.storage.onChanged.addListener(
+      (changes: any) => {
+        if (changes?.remainingSeconds) {
+          const { newValue } = changes.remainingSeconds;
 
-        dispatch(changeRemainingSeconds(newValue));
+          dispatch(changeRemainingSeconds(newValue));
+        }
       }
-    });
+    );
+
+    return () => {
+      chromeApi.storage.onChanged.removeListener(storageListener);
+    };
   }, [dispatch]);
 };
 

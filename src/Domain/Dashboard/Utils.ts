@@ -1,3 +1,5 @@
+import { WebsiteBlockable } from "Domain/Dashboard/Types";
+
 export const calcElapsedTimePercentage = (
   elapsedTimeSeconds: number,
   totalTimeMinutes: number
@@ -6,3 +8,8 @@ export const calcElapsedTimePercentage = (
     Math.round(100 - (elapsedTimeSeconds / (totalTimeMinutes * 60)) * 100) || 1
   );
 };
+
+export const getWebsiteIndex = (
+  blockableWebsites: WebsiteBlockable[],
+  websiteUrl: string
+) => blockableWebsites.findIndex(({ url }) => url === websiteUrl);
