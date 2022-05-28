@@ -1,5 +1,5 @@
-import AddField from "Components/Dashboard/Websites/AddField";
-import WebsiteList from "Components/Dashboard/Websites/WebsiteList";
+import AddField from "Components/Pomodoro/Websites/AddField";
+import WebsiteList from "Components/Pomodoro/Websites/WebsiteList";
 
 const Websites = () => {
   return (

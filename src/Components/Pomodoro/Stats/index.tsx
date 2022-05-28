@@ -1,6 +1,6 @@
 import { PresentationChartLineIcon } from "@heroicons/react/outline";
 
-import StatsItem from "Components/Dashboard/Stats/StatsItem";
+import StatsItem from "Components/Pomodoro/Stats/StatsItem";
 import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
 import {
   decrementCompletedBreaks,

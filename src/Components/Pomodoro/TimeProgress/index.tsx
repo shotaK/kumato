@@ -1,5 +1,5 @@
 import Pie from "Components/Shared/ProgressRing";
-import Timer from "Components/Dashboard/TimeProgress/Timer";
+import Timer from "Components/Pomodoro/TimeProgress/Timer";
 import { timeElapsedPercentageSelector } from "Domain/Dashboard/DashboardSelectors";
 import { useAppSelector } from "Domain/Hooks";
 

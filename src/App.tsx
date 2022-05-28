@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 
-import Dashboard from "Components/Dashboard";
+import Pomodoro from "Components/Pomodoro";
 import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
 import { useAppSelector } from "Domain/Hooks";
 import { initializeData } from "Domain/Dashboard/DashboardSlice";
 import { useAppThunkDispatch } from "Domain/Hooks";
 import useStorageChange from "Hooks/useStorageChange";
 
-import "./App.css";
+import Dashboard from "Components/Dashboard";
 
 function App() {
   const dispatch = useAppThunkDispatch();

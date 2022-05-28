@@ -16,3 +16,4 @@ const useDataPersistor = () => {
 };
 
 export default useDataPersistor;
+

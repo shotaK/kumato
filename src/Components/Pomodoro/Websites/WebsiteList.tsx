@@ -1,4 +1,4 @@
-import WebsiteItem from "Components/Dashboard/Websites/WebsiteItem";
+import WebsiteItem from "Components/Pomodoro/Websites/WebsiteItem";
 import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
 import { useAppSelector } from "Domain/Hooks";
 

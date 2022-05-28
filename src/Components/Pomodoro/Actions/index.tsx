@@ -7,7 +7,7 @@ import {
   SparklesIcon,
 } from "@heroicons/react/outline";
 
-import ActionButton from "Components/Dashboard/Actions/ActionButton";
+import ActionButton from "Components/Pomodoro/Actions/ActionButton";
 import { useAppSelector, useAppDispatch } from "Domain/Hooks";
 import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
 import {
