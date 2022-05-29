@@ -6,7 +6,7 @@ import {
   blockWebsite,
   deleteWebsite,
   unblockWebsite,
-} from "Domain/Dashboard/DashboardSlice";
+} from "Domain/Pomodoro/PomodoroSlice";
 
 const WebsiteItem = ({
   isBlocked,

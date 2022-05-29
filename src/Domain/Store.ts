@@ -5,11 +5,13 @@ import {
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 
-import dashboardReducer from "Domain/Dashboard/DashboardSlice";
+import pomodoroReducer from "Domain/Pomodoro/PomodoroSlice";
+import todoReducer from "Domain/Todo/TodoSlice";
 
 export const store = configureStore({
   reducer: {
-    dashboard: dashboardReducer,
+    pomodoro: pomodoroReducer,
+    todo: todoReducer,
   },
 });
 

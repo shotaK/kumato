@@ -1,9 +1,9 @@
 import WebsiteItem from "Components/Pomodoro/Websites/WebsiteItem";
-import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
+import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import { useAppSelector } from "Domain/Hooks";
 
 const WebsiteList = () => {
-  const { blockableWebsites } = useAppSelector(dashboardSelector);
+  const { blockableWebsites } = useAppSelector(pomodoroSelector);
 
   return (
     <ul>

@@ -9,7 +9,7 @@ import {
 
 import ActionButton from "Components/Pomodoro/Actions/ActionButton";
 import { useAppSelector, useAppDispatch } from "Domain/Hooks";
-import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
+import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import {
   breakStarter,
   completeBreak,
@@ -19,7 +19,7 @@ import {
   discardCycle,
   pauseCycle,
   resumeCycle,
-} from "Domain/Dashboard/DashboardSlice";
+} from "Domain/Pomodoro/PomodoroSlice";
 
 const Actions = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ const Actions = () => {
     breakStarted,
     cycleDuration,
     breakDuration,
-  } = useAppSelector(dashboardSelector);
+  } = useAppSelector(pomodoroSelector);
 
   return (
     <div>

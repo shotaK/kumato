@@ -1,12 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-import { calcElapsedTimePercentage } from "Domain/Dashboard/Utils";
+import { calcElapsedTimePercentage } from "Domain/Pomodoro/Utils";
 import { RootState } from "Domain/Store";
 
-export const dashboardSelector = (state: RootState) => state.dashboard;
+export const pomodoroSelector = (state: RootState) => state.pomodoro;
 
 export const timeElapsedPercentageSelector = createSelector(
-  dashboardSelector,
+  pomodoroSelector,
   ({ cycleStarted, remainingSeconds, currentRunDuration, breakStarted }) => {
     if (cycleStarted) {
       return calcElapsedTimePercentage(remainingSeconds, currentRunDuration);

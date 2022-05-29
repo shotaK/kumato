@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import omit from "lodash.omit";
 
 import { useAppSelector } from "Domain/Hooks";
-import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
+import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import { setStorageSyncData } from "Services/StorageApi";
 
 const useDataPersistor = () => {
-  const dashboard = useAppSelector(dashboardSelector);
+  const dashboard = useAppSelector(pomodoroSelector);
 
   useEffect(() => {
     setStorageSyncData(

@@ -3,15 +3,15 @@ import { CogIcon } from "@heroicons/react/outline";
 import InputNumber from "Components/Shared/Input/InputNumber";
 import Label from "Components/Shared/Label";
 import { useAppSelector, useAppDispatch } from "Domain/Hooks";
-import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
+import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import {
   changeBreakDuration,
   changeCycleDuration,
-} from "Domain/Dashboard/DashboardSlice";
+} from "Domain/Pomodoro/PomodoroSlice";
 
 const Settings = () => {
   const dispatch = useAppDispatch();
-  const { cycleDuration, breakDuration } = useAppSelector(dashboardSelector);
+  const { cycleDuration, breakDuration } = useAppSelector(pomodoroSelector);
 
   return (
     <div>
@@ -27,7 +27,7 @@ const Settings = () => {
         <span className="block mb-1">Kumato duration:</span>
         <InputNumber
           type="text"
-          className="w-20"
+          className="w-20 text-sm"
           value={cycleDuration}
           placeholder="Minutes"
           onUpdate={(value) => dispatch(changeCycleDuration(value))}
@@ -38,7 +38,7 @@ const Settings = () => {
         <span className="block mb-1">Break duration:</span>
         <InputNumber
           type="text"
-          className="w-20"
+          className="w-20 text-sm"
           placeholder="Minutes"
           value={breakDuration}
           onUpdate={(value) => dispatch(changeBreakDuration(value))}

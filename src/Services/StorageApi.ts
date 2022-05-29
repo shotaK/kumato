@@ -1,6 +1,6 @@
 import get from "lodash.get";
 
-import { starterData } from "Domain/Dashboard/DashboardSlice";
+import { starterData } from "Domain/Pomodoro/PomodoroSlice";
 
 export const chromeApi = get(global, "chrome.storage")
   ? get(global, "chrome")
@@ -28,6 +28,7 @@ export const chromeApi = get(global, "chrome.storage")
           addListener: (callback = (changes: any) => {}) => {
             callback({ remainingSeconds: { newValue: 2699, oldValue: 2700 } });
           },
+          removeListener: () => {},
         },
       },
     };

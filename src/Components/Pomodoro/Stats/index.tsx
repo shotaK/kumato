@@ -1,21 +1,21 @@
 import { PresentationChartLineIcon } from "@heroicons/react/outline";
 
 import StatsItem from "Components/Pomodoro/Stats/StatsItem";
-import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
+import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import {
   decrementCompletedBreaks,
   decrementCompletedCycles,
   incrementCompletedBreaks,
   incrementCompletedCycles,
   resetStats,
-} from "Domain/Dashboard/DashboardSlice";
+} from "Domain/Pomodoro/PomodoroSlice";
 import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 
 const Stats = () => {
   const dispatch = useAppDispatch();
 
   const { cyclesCompleted, breakCompleted } =
-    useAppSelector(dashboardSelector);
+    useAppSelector(pomodoroSelector);
 
   return (
     <div>

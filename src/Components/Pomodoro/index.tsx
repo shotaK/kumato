@@ -4,11 +4,11 @@ import Stats from "Components/Pomodoro/Stats";
 import TimeProgress from "Components/Pomodoro/TimeProgress";
 import Websites from "Components/Pomodoro/Websites";
 import { useAppSelector } from "Domain/Hooks";
-import { dashboardSelector } from "Domain/Dashboard/DashboardSelectors";
+import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import useDataPersistor from "Hooks/useDataPersistor";
 
-const Dashboard = () => {
-  const { cycleStarted, breakStarted } = useAppSelector(dashboardSelector);
+const Pomodoro = () => {
+  const { cycleStarted, breakStarted } = useAppSelector(pomodoroSelector);
   useDataPersistor();
 
   return (
@@ -29,4 +29,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Pomodoro;

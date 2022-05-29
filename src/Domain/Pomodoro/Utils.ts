@@ -1,4 +1,4 @@
-import { WebsiteBlockable } from "Domain/Dashboard/Types";
+import { WebsiteBlockable } from "Domain/Pomodoro/Types";
 
 export const calcElapsedTimePercentage = (
   elapsedTimeSeconds: number,

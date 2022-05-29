@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import isEmpty from "lodash.isempty";
 
-import { WebsiteBlockable } from "Domain/Dashboard/Types";
+import { WebsiteBlockable } from "Domain/Pomodoro/Types";
 import { RootState, ThunkAppDispatch } from "Domain/Store";
 import {
   getAllStorageSyncData,
   setDefaultAllStorageSyncData,
   setStorageSyncData,
 } from "Services/StorageApi";
-import { getWebsiteIndex } from "Domain/Dashboard/Utils";
+import { getWebsiteIndex } from "Domain/Pomodoro/Utils";
 
-export interface DashboardState {
+export interface PomodoroState {
   remainingSeconds: number;
   currentRunDuration: number;
 
@@ -28,7 +28,7 @@ export interface DashboardState {
   defaultStorageDataFetched?: boolean;
 }
 
-export const starterData: DashboardState = {
+export const starterData: PomodoroState = {
   remainingSeconds: 0,
   currentRunDuration: 0,
 
@@ -44,13 +44,13 @@ export const starterData: DashboardState = {
   blockableWebsites: [],
 };
 
-const initialState: DashboardState = {
+const initialState: PomodoroState = {
   ...starterData,
   defaultStorageDataFetched: false,
 };
 
-export const dashboardSlice = createSlice({
-  name: "dashboard",
+export const pomodoroSlice = createSlice({
+  name: "pomodoro",
   initialState,
   reducers: {
     incrementCompletedCycles: (state) => {
@@ -210,7 +210,7 @@ export const {
   updateDefaultStorageDataFetched,
   provideDefaultStorageData,
   changeRemainingSeconds,
-} = dashboardSlice.actions;
+} = pomodoroSlice.actions;
 
 export const initializeData =
   () => async (dispatch: ThunkAppDispatch, getState: any) => {
@@ -228,7 +228,7 @@ export const initializeData =
 export const cycleStarter =
   () => async (dispatch: ThunkAppDispatch, getState: any) => {
     await setStorageSyncData({
-      remainingSeconds: getState().dashboard.cycleDuration * 60,
+      remainingSeconds: getState().pomodoro.cycleDuration * 60,
     });
     dispatch(startCycle());
   };
@@ -236,9 +236,9 @@ export const cycleStarter =
 export const breakStarter =
   () => async (dispatch: ThunkAppDispatch, getState: () => RootState) => {
     await setStorageSyncData({
-      remainingSeconds: getState().dashboard.breakDuration * 60,
+      remainingSeconds: getState().pomodoro.breakDuration * 60,
     });
     dispatch(startBreak());
   };
 
-export default dashboardSlice.reducer;
+export default pomodoroSlice.reducer;
