@@ -18,7 +18,7 @@ export default function Tabs({
   return (
     <div className="w-full max-w-md px-2 sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl">
+        <Tab.List className="flex px-6 space-x-1 rounded-xl">
           {tabsData.map(({ id, label, icon: Icon }) => (
             <Tab
               key={id}

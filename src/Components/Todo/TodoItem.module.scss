@@ -1,0 +1,11 @@
+:global(.todo-item) {
+  &:hover {
+    :global(.todo-item-action) {
+      visibility: visible;
+    }
+
+    :global(.todo-item-draggable-source) {
+      visibility: visible;
+    }
+  }
+}

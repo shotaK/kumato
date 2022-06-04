@@ -5,24 +5,22 @@ import { ClockIcon, BadgeCheckIcon } from "@heroicons/react/outline";
 
 const Tabs = () => {
   return (
-    <div>
-      <TabsCommon
-        tabsData={[
-          {
-            id: "pomodoro",
-            label: "Pomodoro",
-            content: <Pomodoro />,
-            icon: ClockIcon,
-          },
-          {
-            id: "todo",
-            label: "Todo",
-            content: <Todo />,
-            icon: BadgeCheckIcon,
-          },
-        ]}
-      />
-    </div>
+    <TabsCommon
+      tabsData={[
+        {
+          id: "pomodoro",
+          label: "Pomodoro",
+          content: <Pomodoro />,
+          icon: ClockIcon,
+        },
+        {
+          id: "todo",
+          label: "Todo",
+          content: <Todo />,
+          icon: BadgeCheckIcon,
+        },
+      ]}
+    />
   );
 };
 

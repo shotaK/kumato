@@ -12,7 +12,7 @@ const Pomodoro = () => {
   useDataPersistor();
 
   return (
-    <div>
+    <div className="px-6">
       <div className="flex justify-between">
         <Stats />
         <Settings />

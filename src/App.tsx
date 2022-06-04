@@ -18,7 +18,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="p-6 w-96 mx-auto bg-[#2a2727]">
+    <div className="py-6 w-96 mx-auto bg-[#2a2727]">
       {defaultStorageDataFetched && <Dashboard />}
     </div>
   );

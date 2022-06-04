@@ -1,5 +1,6 @@
 import { Todo } from "Domain/Todo/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { moveElement } from "Utils/list";
 
 export interface TodoState {
   todoList: Array<Todo>;
@@ -25,7 +26,7 @@ export const todoSlice = createSlice({
     },
     updateTodo: (
       state,
-      action: PayloadAction<{ todoId: string; todo: Omit<Todo, "id"> }>
+      action: PayloadAction<{ todoId: string; todo: Omit<Partial<Todo>, "id"> }>
     ) => {
       const { todoId, todo } = action.payload;
 
@@ -33,9 +34,34 @@ export const todoSlice = createSlice({
         todoExisted.id === todoId ? { ...todoExisted, ...todo } : todoExisted
       );
     },
+
+    deleteTodo: (state, action: PayloadAction<{ todoId: string }>) => {
+      state.todoList = state.todoList.filter(
+        ({ id }) => id !== action.payload.todoId
+      );
+    },
+
+    moveTodoItem(
+      state,
+      action: PayloadAction<{
+        dragIndex: number;
+        hoverIndex: number;
+        todoId: string;
+      }>
+    ) {
+      const { dragIndex, hoverIndex } = action.payload;
+
+      state.todoList = moveElement(state.todoList, dragIndex, hoverIndex);
+    },
   },
 });
 
-export const { addTodo, toggleTodoStatus, updateTodo } = todoSlice.actions;
+export const {
+  addTodo,
+  toggleTodoStatus,
+  updateTodo,
+  deleteTodo,
+  moveTodoItem,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

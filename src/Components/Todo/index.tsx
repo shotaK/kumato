@@ -7,7 +7,9 @@ const Todo = () => {
       <div className="mb-6">
         <TodoList />
       </div>
-      <AddTodoItem />
+      <div className="px-6">
+        <AddTodoItem />
+      </div>
     </div>
   );
 };
