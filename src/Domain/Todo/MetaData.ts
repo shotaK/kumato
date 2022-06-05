@@ -1,6 +1,6 @@
 import { TodoPriority } from "Domain/Todo/Types";
 
-export const priorityList: TodoPriority[] = [
+export const todoPriorityList: TodoPriority[] = [
   {
     id: "30T8PsFIcP3WOEO1LnOxZ",
     label: "1",

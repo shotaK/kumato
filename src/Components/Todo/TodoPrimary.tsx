@@ -50,7 +50,7 @@ const TodoPrimary = ({
                 <div className="flex">
                   <div className="flex border-r border-coolGray-300 pr-2 mr-2 items-center">
                     <span className="text-sm">Priority:</span>
-                    <TodoPriorityList />
+                    <TodoPriorityList todo={todo} />
                   </div>
                   <button type="button" onClick={() => setIsEditing(true)}>
                     <PencilAltIcon className="h-5 w-5 text-yellow-600" />
