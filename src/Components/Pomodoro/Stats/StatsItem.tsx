@@ -18,11 +18,11 @@ const StatsItem = ({
   return (
     <div className={classNames("flex", "items-center", className)}>
       <button type="button" onClick={onIncrement}>
-        <PlusCircleIcon className="h-6 w-6 text-green-700 justify-center" />
+        <PlusCircleIcon className="h-6 w-6 text-green-600 justify-center" />
       </button>
       <span className="text-gray-200 ml-1.5 text-sm">{title}</span>
       <button type="button" onClick={onDecrement}>
-        <MinusCircleIcon className="h-6 w-6 text-red-800 ml-1.5" />
+        <MinusCircleIcon className="h-6 w-6 text-red-700 ml-1.5" />
       </button>
     </div>
   );

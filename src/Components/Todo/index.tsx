@@ -1,5 +1,6 @@
 import AddTodoItem from "Components/Todo/AddTodoItem";
 import TodoList from "Components/Todo/TodoList";
+import Container from "Components/Shared/Layout/Container";
 
 const Todo = () => {
   return (
@@ -7,9 +8,9 @@ const Todo = () => {
       <div className="mb-6">
         <TodoList />
       </div>
-      <div className="px-6">
+      <Container>
         <AddTodoItem />
-      </div>
+      </Container>
     </div>
   );
 };

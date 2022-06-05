@@ -1,0 +1,7 @@
+:global(.website-item) {
+  &:hover {
+    :global(.website-item-delete) {
+      visibility: visible;
+    }
+  }
+}

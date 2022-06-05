@@ -6,26 +6,27 @@ import Websites from "Components/Pomodoro/Websites";
 import { useAppSelector } from "Domain/Hooks";
 import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import useDataPersistor from "Hooks/useDataPersistor";
+import Container from "Components/Shared/Layout/Container";
 
 const Pomodoro = () => {
   const { cycleStarted, breakStarted } = useAppSelector(pomodoroSelector);
   useDataPersistor();
 
   return (
-    <div className="px-6">
-      <div className="flex justify-between">
+    <>
+      <Container className="flex justify-between">
         <Stats />
         <Settings />
-      </div>
+      </Container>
 
       {(cycleStarted || breakStarted) && <TimeProgress />}
 
-      <div className="mb-6">
+      <Container className="mb-6">
         <Actions />
-      </div>
+      </Container>
 
       <Websites />
-    </div>
+    </>
   );
 };
 
