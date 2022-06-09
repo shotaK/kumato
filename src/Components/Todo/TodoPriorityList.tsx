@@ -16,7 +16,11 @@ const TodoPriorityList = ({ todo }: { todo: Todo }) => {
   return (
     <div className="flex">
       {todoPriorityList.map((priority) => (
-        <div id={priority.id} className="flex mx-0.5 border border-white">
+        <div
+          key={priority.id}
+          id={priority.id}
+          className="flex mx-0.5 border border-white"
+        >
           <TodoPriorityBox priority={priority} onClick={updateTodoPriority} />
         </div>
       ))}

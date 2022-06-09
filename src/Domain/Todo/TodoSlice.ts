@@ -1,6 +1,7 @@
 import { Todo } from "Domain/Todo/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { moveElement } from "Utils/list";
+import { moveElement, sortAlphaNum } from "Utils/list";
+import { getTodoPriority } from "Domain/Todo/Utils";
 
 export interface TodoState {
   todoList: Array<Todo>;
@@ -41,6 +42,12 @@ export const todoSlice = createSlice({
       );
     },
 
+    sortTodosByPriority: (state) => {
+      state.todoList = state.todoList.sort((a, b) =>
+        sortAlphaNum(getTodoPriority(a)?.label, getTodoPriority(b)?.label)
+      );
+    },
+
     moveTodoItem(
       state,
       action: PayloadAction<{
@@ -61,6 +68,7 @@ export const {
   toggleTodoStatus,
   updateTodo,
   deleteTodo,
+  sortTodosByPriority,
   moveTodoItem,
 } = todoSlice.actions;
 

@@ -56,8 +56,8 @@ const Pie = ({
     <svg width={200} height={200} className={className}>
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#2dd4bf" />
-          <stop offset="100%" stop-color="#3b82f6" />
+          <stop offset="0%" stopColor="#2dd4bf" />
+          <stop offset="100%" stopColor="#3b82f6" />
         </linearGradient>
       </defs>
 

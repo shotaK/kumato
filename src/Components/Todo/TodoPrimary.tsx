@@ -37,13 +37,11 @@ const TodoPrimary = ({
       <Menu as="div" className="relative">
         <div>
           <Menu.Button className="flex ml-1">
-            <button>
-              <DotsHorizontalIcon className="h-5 w-5 text-coolGray-100" />
-            </button>
+            <DotsHorizontalIcon className="h-5 w-5 text-coolGray-100" />
           </Menu.Button>
         </div>
 
-        <Menu.Items className="absolute right-0 w-50 px-1.5 py-1.5 z-10 origin-top-right divide-y divide-gray-100 rounded-sm bg-white shadow-lg focus:outline-none">
+        <Menu.Items className="absolute right-0 w-50 px-1.5 py-1.5 z-10 origin-top-right divide-y divide-gray-100 rounded-sm bg-coolGray-100 shadow-lg focus:outline-none">
           <div>
             <Menu.Item>
               {({ active }) => (
