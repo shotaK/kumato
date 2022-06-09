@@ -3,7 +3,7 @@ import {
   LockClosedIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
-import { bool } from "prop-types";
+import { bool, string } from "prop-types";
 
 import { useAppDispatch } from "Domain/Hooks";
 import {
@@ -55,7 +55,7 @@ const WebsiteItem = ({
 
 WebsiteItem.propTypes = {
   isBlocked: bool,
-  websiteUrl: bool,
+  websiteUrl: string,
 };
 
 export default WebsiteItem;

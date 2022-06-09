@@ -8,7 +8,7 @@ const WebsiteList = () => {
   return (
     <ul>
       {blockableWebsites.map(({ url, isBlocked }) => (
-        <WebsiteItem isBlocked={isBlocked} websiteUrl={url} />
+        <WebsiteItem key={url} isBlocked={isBlocked} websiteUrl={url} />
       ))}
     </ul>
   );

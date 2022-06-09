@@ -10,7 +10,7 @@ const Todo = () => {
   return (
     <div>
       {!isTodoListEmpty && (
-        <Container className="flex justify-end mb-2">
+        <Container className="flex justify-between mb-2">
           <TodoListActions />
         </Container>
       )}

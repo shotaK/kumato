@@ -48,6 +48,10 @@ export const todoSlice = createSlice({
       );
     },
 
+    deleteCompletedTodos: (state) => {
+      state.todoList = state.todoList.filter(({ isComplete }) => !isComplete);
+    },
+
     moveTodoItem(
       state,
       action: PayloadAction<{
@@ -70,6 +74,7 @@ export const {
   deleteTodo,
   sortTodosByPriority,
   moveTodoItem,
+  deleteCompletedTodos,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
