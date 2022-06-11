@@ -16,4 +16,12 @@ export const moveElement = (
   return updatedArr;
 };
 
-export const sortAlphaNum = (a, b) => a.localeCompare(b, "en", { numeric: true });
+export const sortAlphaNum = (a = "", b = "") => {
+  if (b === "") {
+    return -1;
+  }
+  if (a === "") {
+    return 1;
+  }
+  return a.localeCompare(b, "en", { numeric: true });
+};

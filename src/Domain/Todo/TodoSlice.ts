@@ -1,4 +1,4 @@
-import { Todo } from "Domain/Todo/Types";
+import { Todo, TodoStatus } from "Domain/Todo/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { moveElement, sortAlphaNum } from "Utils/list";
 import { getTodoPriority } from "Domain/Todo/Utils";
@@ -21,7 +21,11 @@ export const todoSlice = createSlice({
     toggleTodoStatus: (state, action: PayloadAction<string>) => {
       state.todoList = state.todoList.map((todo) =>
         todo.id === action.payload
-          ? { ...todo, isComplete: !todo.isComplete }
+          ? {
+              ...todo,
+              isComplete: !todo.isComplete,
+              status: TodoStatus.default,
+            }
           : todo
       );
     },

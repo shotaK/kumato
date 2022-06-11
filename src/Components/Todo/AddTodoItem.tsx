@@ -4,6 +4,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useAppDispatch } from "Domain/Hooks";
 import InputButtonGroup from "Components/Shared/Input/InputButtonGroup";
 import { addTodo } from "Domain/Todo/TodoSlice";
+import { TodoStatus } from "Domain/Todo/Types";
 
 const AddTodoItem = () => {
   const [taskTitle, setTaskTitle] = useState("");
@@ -16,7 +17,14 @@ const AddTodoItem = () => {
   const onTaskAdd = () => {
     if (taskTitle) {
       setTaskTitle("");
-      dispatch(addTodo({ id: nanoid(), title: taskTitle, isComplete: false }));
+      dispatch(
+        addTodo({
+          id: nanoid(),
+          title: taskTitle,
+          isComplete: false,
+          status: TodoStatus.default,
+        })
+      );
     }
   };
 

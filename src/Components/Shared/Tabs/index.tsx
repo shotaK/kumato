@@ -5,19 +5,29 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
+type TabsData = {
+  id: string;
+  label: ReactNode;
+  content: ReactNode;
+  icon: ElementType;
+};
+
 export default function Tabs({
   tabsData,
+  onTabChange,
 }: {
-  tabsData: Array<{
-    id: string;
-    label: ReactNode;
-    content: ReactNode;
-    icon: ElementType;
-  }>;
+  tabsData: Array<TabsData>;
+  onTabChange?: (tabsData: TabsData) => void;
 }) {
+  const onChange = (tabIndex: number) => {
+    if (onTabChange) {
+      onTabChange(tabsData[tabIndex]);
+    }
+  };
+
   return (
     <div className="w-full max-w-md px-2 sm:px-0">
-      <Tab.Group>
+      <Tab.Group onChange={onChange}>
         <Tab.List className="flex px-6 space-x-1 rounded-xl">
           {tabsData.map(({ id, label, icon: Icon }) => (
             <Tab

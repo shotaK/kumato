@@ -9,6 +9,7 @@ import { Todo } from "Domain/Todo/Types";
 import { useAppDispatch } from "Domain/Hooks";
 import { deleteTodo } from "Domain/Todo/TodoSlice";
 import TodoPriorityList from "Components/Todo/TodoPriorityList";
+import TodoStatusActions from "Components/Todo/TodoStatusActions";
 
 const TodoPrimary = ({
   todo,
@@ -33,6 +34,8 @@ const TodoPrimary = ({
       >
         {title}
       </span>
+
+      {!todo.isComplete && <TodoStatusActions todo={todo} />}
 
       <Menu as="div" className="relative">
         <div>

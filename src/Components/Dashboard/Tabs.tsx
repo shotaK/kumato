@@ -4,6 +4,10 @@ import Todo from "Components/Todo";
 import { ClockIcon, BadgeCheckIcon } from "@heroicons/react/outline";
 
 const Tabs = () => {
+  const onTabChange = (tabData) => {
+    console.log(tabData);
+  };
+
   return (
     <TabsCommon
       tabsData={[
@@ -20,6 +24,7 @@ const Tabs = () => {
           icon: BadgeCheckIcon,
         },
       ]}
+      onTabChange={onTabChange}
     />
   );
 };
