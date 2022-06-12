@@ -17,7 +17,7 @@ const TodoText = memo(({ todo }: { todo: Todo }) => {
   return (
     <span
       className={classNames(
-        "text-gray-200 text-sm flex-1",
+        "text-gray-200 text-sm flex-1 break-all",
         {
           "line-through text-gray-400": isComplete,
         },
