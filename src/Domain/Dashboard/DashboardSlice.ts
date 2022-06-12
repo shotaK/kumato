@@ -45,13 +45,7 @@ export const initializeDashboardData =
     const allStorageData: { dashboard?: DashboardState } =
       await getAllStorageSyncData(StorageApiType.sync);
 
-    console.log("allStorageData", allStorageData);
-
-    console.log("getState", getState());
-
     const dashboard = allStorageData?.dashboard;
-
-    console.log("dashboard", dashboard);
 
     if (isEmpty(dashboard)) {
       await setDefaultAllStorageSyncData({
@@ -61,8 +55,6 @@ export const initializeDashboardData =
     } else {
       dispatch(provideDefaultStorageData(dashboard));
     }
-
-    console.log("getState end", getState());
   };
 
 export default dashboardSlice.reducer;
