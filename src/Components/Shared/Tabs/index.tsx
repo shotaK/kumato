@@ -28,15 +28,15 @@ export default function Tabs({
   };
 
   return (
-    <div className="w-full max-w-md px-2 sm:px-0">
+    <div className="w-full max-w-md sm:px-0">
       <Tab.Group onChange={onChange} selectedIndex={selectedIndex}>
-        <Tab.List className="flex px-6 space-x-1 rounded-xl">
+        <Tab.List className="flex px-4 space-x-1 rounded-xl">
           {tabsData.map(({ id, label, icon: Icon }) => (
             <Tab
               key={id}
               className={({ selected }) =>
                 classNames(
-                  "flex items-center justify-center w-full rounded-sm py-1 mb-4 text-sm font-medium focus:outline-none",
+                  "flex items-center justify-center w-full rounded-sm py-1 mx-2 mb-4 text-sm font-medium focus:outline-none",
                   selected
                     ? "text-coolGray-800 bg-coolGray-100 shadow"
                     : "text-coolGray-400 bg-coolGray-500 hover:bg-coolGray-400 hover:text-coolGray-100"

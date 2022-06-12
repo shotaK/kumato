@@ -1,23 +1,22 @@
-import { createListenerMiddleware } from "@reduxjs/toolkit";
+import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
 import { setDefaultAllStorageSyncData } from "Domain/StorageApi/Actions";
 import { StorageApiType } from "Domain/StorageApi/Types";
 import { RootState } from "Domain/Store";
+import { updateMainTab } from "Domain/Dashboard/DashboardSlice";
 
-const todoListenerMiddleware = createListenerMiddleware();
+const dashboardListenerMiddleware = createListenerMiddleware();
 
-todoListenerMiddleware.startListening({
-  predicate: (action) => {
-    return action?.type && action.type.startsWith("todo/");
-  },
+dashboardListenerMiddleware.startListening({
+  matcher: isAnyOf(updateMainTab),
   effect: async (action, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     setDefaultAllStorageSyncData({
       storageApiType: StorageApiType.sync,
       data: {
-        todo: state.todo,
+        dashboard: state.dashboard,
       },
     });
   },
 });
 
-export default todoListenerMiddleware;
+export default dashboardListenerMiddleware;

@@ -8,7 +8,7 @@ build() {
     export INLINE_RUNTIME_CHUNK=false
     export GENERATE_SOURCEMAP=false
 
-    craco build
+    react-scripts build
 
     mkdir -p extension
     mv build/* extension

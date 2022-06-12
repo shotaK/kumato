@@ -10,6 +10,7 @@ import { useMemo } from "react";
 const Tabs = () => {
   const dispatch = useAppDispatch();
   const { mainTab } = useAppSelector(mainTabSelector);
+  console.log("comp mainTab", mainTab);
 
   const onTabChange = (tabData) => {
     dispatch(updateMainTab(tabData.id));
@@ -35,7 +36,7 @@ const Tabs = () => {
 
   const selectedTabIndex = useMemo(
     () => tabs.findIndex(({ id }) => id === mainTab),
-    []
+    [tabs, mainTab]
   );
 
   return (

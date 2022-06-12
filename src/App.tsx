@@ -6,6 +6,7 @@ import useStorageChange from "Hooks/useStorageChange";
 
 import Dashboard from "Components/Dashboard";
 import { initializeTodoData } from "Domain/Todo/TodoSlice";
+import { initializeDashboardData } from "Domain/Dashboard/DashboardSlice";
 
 function App() {
   const dispatch = useAppThunkDispatch();
@@ -17,6 +18,7 @@ function App() {
   useEffect(() => {
     dispatch(initializePomodoroData());
     dispatch(initializeTodoData());
+    dispatch(initializeDashboardData());
   }, [dispatch]);
 
   return (

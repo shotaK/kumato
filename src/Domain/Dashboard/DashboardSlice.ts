@@ -1,4 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ThunkAppDispatch } from "Domain/Store";
+import {
+  getAllStorageSyncData,
+  setDefaultAllStorageSyncData,
+} from "Domain/StorageApi/Actions";
+import { StorageApiType } from "Domain/StorageApi/Types";
+import isEmpty from "lodash.isempty";
 
 export const MainTab = {
   pomodoro: "pomodoro",
@@ -11,7 +18,7 @@ export interface DashboardState {
   mainTab: MainTab;
 }
 
-const initialState: DashboardState = {
+export const initialState: DashboardState = {
   mainTab: MainTab.pomodoro,
 };
 
@@ -22,9 +29,40 @@ export const dashboardSlice = createSlice({
     updateMainTab: (state, action: PayloadAction<MainTab>) => {
       state.mainTab = action.payload;
     },
+    provideDefaultStorageData: (state, action) => {
+      const data = action.payload;
+
+      return { ...state, ...data };
+    },
   },
 });
 
-export const { updateMainTab } = dashboardSlice.actions;
+export const { updateMainTab, provideDefaultStorageData } =
+  dashboardSlice.actions;
+
+export const initializeDashboardData =
+  () => async (dispatch: ThunkAppDispatch, getState: any) => {
+    const allStorageData: { dashboard?: DashboardState } =
+      await getAllStorageSyncData(StorageApiType.sync);
+
+    console.log("allStorageData", allStorageData);
+
+    console.log("getState", getState());
+
+    const dashboard = allStorageData?.dashboard;
+
+    console.log("dashboard", dashboard);
+
+    if (isEmpty(dashboard)) {
+      await setDefaultAllStorageSyncData({
+        storageApiType: StorageApiType.sync,
+        data: { dashboard: initialState },
+      });
+    } else {
+      dispatch(provideDefaultStorageData(dashboard));
+    }
+
+    console.log("getState end", getState());
+  };
 
 export default dashboardSlice.reducer;

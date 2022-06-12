@@ -9,6 +9,7 @@ import pomodoroReducer from "Domain/Pomodoro/PomodoroSlice";
 import todoReducer from "Domain/Todo/TodoSlice";
 import dashboardReducer from "Domain/Dashboard/DashboardSlice";
 import todoListenerMiddleware from "Domain/Todo/TodoListenerMiddleware";
+import dashboardListenerMiddleware from "Domain/Dashboard/DashboardListenerMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,10 @@ export const store = configureStore({
     dashboard: dashboardReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(todoListenerMiddleware.middleware),
+    getDefaultMiddleware().prepend(
+      todoListenerMiddleware.middleware,
+      dashboardListenerMiddleware.middleware
+    ),
 });
 
 export type AppDispatch = typeof store.dispatch;
