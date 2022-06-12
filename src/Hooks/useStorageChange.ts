@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { chromeApi } from "Services/StorageApi";
+import { localChromeApi } from "Domain/Pomodoro/PomodoroStorageApi";
 import { useAppDispatch } from "Domain/Hooks";
 import { changeRemainingSeconds } from "Domain/Pomodoro/PomodoroSlice";
 
@@ -8,7 +8,7 @@ const useStorageChange = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const storageListener = chromeApi.storage.onChanged.addListener(
+    const storageListener = localChromeApi.storage.onChanged.addListener(
       (changes: any) => {
         if (changes?.remainingSeconds) {
           const { newValue } = changes.remainingSeconds;
@@ -19,7 +19,7 @@ const useStorageChange = () => {
     );
 
     return () => {
-      chromeApi.storage.onChanged.removeListener(storageListener);
+      localChromeApi.storage.onChanged.removeListener(storageListener);
     };
   }, [dispatch]);
 };

@@ -3,12 +3,12 @@ import isEmpty from "lodash.isempty";
 
 import { WebsiteBlockable } from "Domain/Pomodoro/Types";
 import { RootState, ThunkAppDispatch } from "Domain/Store";
+import { setStorageSyncData } from "Domain/Pomodoro/PomodoroStorageApi";
+import { getWebsiteIndex } from "Domain/Pomodoro/Utils";
 import {
   getAllStorageSyncData,
   setDefaultAllStorageSyncData,
-  setStorageSyncData,
-} from "Services/StorageApi";
-import { getWebsiteIndex } from "Domain/Pomodoro/Utils";
+} from "Domain/StorageApi/Actions";
 
 export interface PomodoroState {
   remainingSeconds: number;
@@ -195,7 +195,6 @@ export const {
   changeCycleDuration,
   changeBreakDuration,
   startCycle,
-  elapseSecond,
   completeCycle,
   discardCycle,
   pauseCycle,
@@ -212,12 +211,12 @@ export const {
   changeRemainingSeconds,
 } = pomodoroSlice.actions;
 
-export const initializeData =
+export const initializePomodoroData =
   () => async (dispatch: ThunkAppDispatch, getState: any) => {
     const allStorageData = await getAllStorageSyncData();
 
     if (isEmpty(allStorageData)) {
-      await setDefaultAllStorageSyncData();
+      await setDefaultAllStorageSyncData({ data: starterData });
     } else {
       dispatch(provideDefaultStorageData(allStorageData));
     }

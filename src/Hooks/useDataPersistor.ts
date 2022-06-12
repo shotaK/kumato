@@ -3,7 +3,7 @@ import omit from "lodash.omit";
 
 import { useAppSelector } from "Domain/Hooks";
 import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
-import { setStorageSyncData } from "Services/StorageApi";
+import { setStorageSyncData } from "Domain/Pomodoro/PomodoroStorageApi";
 
 const useDataPersistor = () => {
   const dashboard = useAppSelector(pomodoroSelector);

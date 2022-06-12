@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { pomodoroSelector } from "Domain/Pomodoro/PomodoroSelectors";
 import { useAppSelector, useAppThunkDispatch } from "Domain/Hooks";
-import { initializeData } from "Domain/Pomodoro/PomodoroSlice";
+import { initializePomodoroData } from "Domain/Pomodoro/PomodoroSlice";
 import useStorageChange from "Hooks/useStorageChange";
 
 import Dashboard from "Components/Dashboard";
+import { initializeTodoData } from "Domain/Todo/TodoSlice";
 
 function App() {
   const dispatch = useAppThunkDispatch();
@@ -14,7 +15,8 @@ function App() {
   useStorageChange();
 
   useEffect(() => {
-    dispatch(initializeData());
+    dispatch(initializePomodoroData());
+    dispatch(initializeTodoData());
   }, [dispatch]);
 
   return (

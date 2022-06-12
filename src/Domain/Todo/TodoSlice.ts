@@ -2,18 +2,25 @@ import { Todo, TodoStatus } from "Domain/Todo/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { moveElement, sortAlphaNum } from "Utils/list";
 import { getTodoPriority } from "Domain/Todo/Utils";
+import { ThunkAppDispatch } from "Domain/Store";
+import isEmpty from "lodash.isempty";
+import {
+  getAllStorageSyncData,
+  setDefaultAllStorageSyncData,
+} from "Domain/StorageApi/Actions";
+import { StorageApiType } from "Domain/StorageApi/Types";
 
 export interface TodoState {
   todoList: Array<Todo>;
 }
 
-const initialState: TodoState = {
+export const todoInitialState: TodoState = {
   todoList: [],
 };
 
 export const todoSlice = createSlice({
   name: "todo",
-  initialState,
+  initialState: todoInitialState,
   reducers: {
     addTodo: (state, action: PayloadAction<Todo>) => {
       state.todoList.push(action.payload);
@@ -68,6 +75,12 @@ export const todoSlice = createSlice({
 
       state.todoList = moveElement(state.todoList, dragIndex, hoverIndex);
     },
+
+    provideDefaultStorageData: (state, action) => {
+      const data = action.payload;
+
+      return { ...state, ...data };
+    },
   },
 });
 
@@ -79,6 +92,24 @@ export const {
   sortTodosByPriority,
   moveTodoItem,
   deleteCompletedTodos,
+  provideDefaultStorageData,
 } = todoSlice.actions;
+
+export const initializeTodoData =
+  () => async (dispatch: ThunkAppDispatch, getState: any) => {
+    const allStorageData: { todo?: TodoState } = await getAllStorageSyncData(
+      StorageApiType.sync
+    );
+    const todo = allStorageData?.todo;
+
+    if (isEmpty(todo)) {
+      await setDefaultAllStorageSyncData({
+        storageApiType: StorageApiType.sync,
+        data: { todo: todoInitialState },
+      });
+    } else {
+      dispatch(provideDefaultStorageData(todo));
+    }
+  };
 
 export default todoSlice.reducer;
