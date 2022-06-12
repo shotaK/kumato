@@ -7,11 +7,13 @@ import {
 
 import pomodoroReducer from "Domain/Pomodoro/PomodoroSlice";
 import todoReducer from "Domain/Todo/TodoSlice";
+import dashboardReducer from "Domain/Dashboard/DashboardSlice";
 
 export const store = configureStore({
   reducer: {
     pomodoro: pomodoroReducer,
     todo: todoReducer,
+    dashboard: dashboardReducer,
   },
 });
 

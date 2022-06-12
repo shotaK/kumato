@@ -1,30 +1,48 @@
 import TabsCommon from "Components/Shared/Tabs";
 import Pomodoro from "Components/Pomodoro";
 import Todo from "Components/Todo";
-import { ClockIcon, BadgeCheckIcon } from "@heroicons/react/outline";
+import { BadgeCheckIcon, ClockIcon } from "@heroicons/react/outline";
+import { useAppDispatch, useAppSelector } from "Domain/Hooks";
+import { MainTab, updateMainTab } from "Domain/Dashboard/DashboardSlice";
+import { mainTabSelector } from "Domain/Dashboard/DashboardSelector";
+import { useMemo } from "react";
 
 const Tabs = () => {
+  const dispatch = useAppDispatch();
+  const { mainTab } = useAppSelector(mainTabSelector);
+
   const onTabChange = (tabData) => {
-    console.log(tabData);
+    dispatch(updateMainTab(tabData.id));
   };
+
+  const tabs = useMemo(
+    () => [
+      {
+        id: MainTab.pomodoro,
+        label: "Pomodoro",
+        content: <Pomodoro />,
+        icon: ClockIcon,
+      },
+      {
+        id: MainTab.todo,
+        label: "Todo",
+        content: <Todo />,
+        icon: BadgeCheckIcon,
+      },
+    ],
+    []
+  );
+
+  const selectedTabIndex = useMemo(
+    () => tabs.findIndex(({ id }) => id === mainTab),
+    []
+  );
 
   return (
     <TabsCommon
-      tabsData={[
-        {
-          id: "pomodoro",
-          label: "Pomodoro",
-          content: <Pomodoro />,
-          icon: ClockIcon,
-        },
-        {
-          id: "todo",
-          label: "Todo",
-          content: <Todo />,
-          icon: BadgeCheckIcon,
-        },
-      ]}
+      tabsData={tabs}
       onTabChange={onTabChange}
+      selectedIndex={selectedTabIndex}
     />
   );
 };

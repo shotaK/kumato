@@ -4,6 +4,8 @@ import { useAppDispatch } from "Domain/Hooks";
 import { updateTodo } from "Domain/Todo/TodoSlice";
 import classNames from "classnames";
 
+import styles from "./TodoStatusActions.module.scss";
+
 const TodoStatusActions = ({ todo }: { todo: Todo }) => {
   const dispatch = useAppDispatch();
   const isStarted = todo.status === TodoStatus.started;
@@ -22,7 +24,12 @@ const TodoStatusActions = ({ todo }: { todo: Todo }) => {
   return (
     <button onClick={toggleTodoStatus} className="relative">
       {isStarted && (
-        <span className="h-5 w-5 right-0 animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+        <span
+          className={classNames(
+            "h-5 w-5 right-0 absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75",
+            styles.todoProgressPing
+          )}
+        ></span>
       )}
       <Icon
         className={classNames("h-5 w-5", {

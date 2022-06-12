@@ -15,9 +15,11 @@ type TabsData = {
 export default function Tabs({
   tabsData,
   onTabChange,
+  selectedIndex,
 }: {
   tabsData: Array<TabsData>;
   onTabChange?: (tabsData: TabsData) => void;
+  selectedIndex?: number;
 }) {
   const onChange = (tabIndex: number) => {
     if (onTabChange) {
@@ -27,7 +29,7 @@ export default function Tabs({
 
   return (
     <div className="w-full max-w-md px-2 sm:px-0">
-      <Tab.Group onChange={onChange}>
+      <Tab.Group onChange={onChange} selectedIndex={selectedIndex}>
         <Tab.List className="flex px-6 space-x-1 rounded-xl">
           {tabsData.map(({ id, label, icon: Icon }) => (
             <Tab
