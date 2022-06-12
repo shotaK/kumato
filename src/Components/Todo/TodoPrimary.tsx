@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import {
   DotsHorizontalIcon,
   PencilAltIcon,
@@ -10,6 +9,8 @@ import { useAppDispatch } from "Domain/Hooks";
 import { deleteTodo } from "Domain/Todo/TodoSlice";
 import TodoPriorityList from "Components/Todo/TodoPriorityList";
 import TodoStatusActions from "Components/Todo/TodoStatusActions";
+import TodoText from "Components/Todo/TodoText";
+import classNames from "classnames";
 
 const TodoPrimary = ({
   todo,
@@ -18,7 +19,7 @@ const TodoPrimary = ({
   todo: Todo;
   setIsEditing: (isEditing: boolean) => void;
 }) => {
-  const { id, title, isComplete } = todo;
+  const { id, isComplete } = todo;
   const dispatch = useAppDispatch();
 
   const handleDeleteTodo = () => {
@@ -27,15 +28,21 @@ const TodoPrimary = ({
 
   return (
     <>
-      <span
-        className={classNames("text-gray-200 text-sm flex-1", {
-          "line-through text-gray-400": isComplete,
-        })}
-      >
-        {title}
-      </span>
+      <TodoText todo={todo} />
 
-      {!todo.isComplete && <TodoStatusActions todo={todo} />}
+      <div
+        className={classNames(
+          "ml-1 flex items-center",
+          {
+            visible: !isComplete,
+          },
+          {
+            invisible: isComplete,
+          }
+        )}
+      >
+        <TodoStatusActions todo={todo} />
+      </div>
 
       <Menu as="div" className="relative">
         <div>

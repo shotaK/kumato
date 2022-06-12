@@ -1,0 +1,10 @@
+.todoText {
+  a {
+    color: #0ea5e9;
+    text-decoration: underline;
+
+    &:hover {
+      color: #0284c7;
+    }
+  }
+}

@@ -19,10 +19,12 @@ const TodoDraggable = ({
   todo,
   index,
   children,
+  isEditing,
 }: {
   todo: Todo;
   index: number;
   children: ReactNode;
+  isEditing: boolean;
 }) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLLIElement>(null);
@@ -107,6 +109,7 @@ const TodoDraggable = ({
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
+    canDrag: !isEditing,
   });
 
   const opacity = isDragging ? 0 : 1;

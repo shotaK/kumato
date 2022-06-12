@@ -18,7 +18,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   const toggleTodo = () => dispatch(toggleTodoStatus(todo.id));
 
   return (
-    <TodoDraggable todo={todo} index={index}>
+    <TodoDraggable todo={todo} index={index} isEditing={isEditing}>
       <div className="mr-2 flex w-2 min-h-full">
         {todoPriority && (
           <div
