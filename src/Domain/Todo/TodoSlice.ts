@@ -54,9 +54,19 @@ export const todoSlice = createSlice({
     },
 
     sortTodosByPriority: (state) => {
-      state.todoList = state.todoList.sort((a, b) =>
-        sortAlphaNum(getTodoPriority(a)?.label, getTodoPriority(b)?.label)
-      );
+      state.todoList = state.todoList.sort((a, b) => {
+        if (b.isComplete) {
+          return -1;
+        }
+        if (a.isComplete) {
+          return 1;
+        }
+
+        return sortAlphaNum(
+          getTodoPriority(a)?.label,
+          getTodoPriority(b)?.label
+        );
+      });
     },
 
     deleteCompletedTodos: (state) => {

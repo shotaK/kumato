@@ -20,7 +20,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   return (
     <TodoDraggable todo={todo} index={index} isEditing={isEditing}>
       <div className="mr-2 flex w-2 min-h-full">
-        {todoPriority && (
+        {todoPriority && !isComplete && (
           <div
             className={classNames(
               `bg-${todoPriority.color}-500`,
