@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Kumato - Pomodoro Productivity extension",
-  "version": "1.0",
+  "version": "2.0.0",
 
   "description": "Kumato is a flexible and customizable Pomodoro productivity extension for Chrome web browser",
   "browser_action": {
