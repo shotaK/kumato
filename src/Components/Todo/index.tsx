@@ -4,6 +4,7 @@ import Container from "Components/Shared/Layout/Container";
 import TodoListActions from "Components/Todo/TodoListActions";
 import { useAppSelector } from "Domain/Hooks";
 import { isTodoListEmptySelector } from "Domain/Todo/TodoSelectors";
+import EmptyTodoListPlaceholder from "Components/Todo/EmptyTodoListPlaceholder";
 
 const Todo = () => {
   const isTodoListEmpty = useAppSelector(isTodoListEmptySelector);
@@ -14,6 +15,7 @@ const Todo = () => {
           <TodoListActions />
         </Container>
       )}
+      {isTodoListEmpty && <EmptyTodoListPlaceholder />}
       <div className="mb-6">
         <TodoList />
       </div>
