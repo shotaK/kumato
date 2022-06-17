@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Kumato - Pomodoro Productivity extension",
+  "name": "Kumato - Pomodoro and Todo extension",
   "version": "2.0.0",
 
-  "description": "Kumato is a flexible and customizable Pomodoro productivity extension for Chrome web browser",
+  "description": "Kumato is a flexible and customizable Pomodoro and Todo productivity extension",
   "browser_action": {
     "default_icon": "icon_48.png",
     "default_popup": "popup.html"
@@ -18,7 +18,7 @@
     "128": "icon_128.png"
   },
 
-  "permissions": ["tabs", "storage", "notifications"],
+  "permissions": ["storage", "notifications"],
 
   "background": {
     "scripts": ["background.js"]

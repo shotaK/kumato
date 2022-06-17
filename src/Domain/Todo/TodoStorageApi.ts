@@ -1,6 +1,5 @@
 import get from "lodash.get";
-import { todoInitialState } from "Domain/Todo/TodoSlice";
-import { initialState, MainTab } from "Domain/Dashboard/DashboardSlice";
+import { MainTab } from "Domain/Dashboard/DashboardSlice";
 
 export const syncChromeApi = get(global, "chrome.storage")
   ? get(global, "chrome")
