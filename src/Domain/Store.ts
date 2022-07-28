@@ -8,6 +8,7 @@ import {
 import pomodoroReducer from "Domain/Pomodoro/PomodoroSlice";
 import todoReducer from "Domain/Todo/TodoSlice";
 import dashboardReducer from "Domain/Dashboard/DashboardSlice";
+import projectsReducer from "Domain/Projects/ProjectsSlice";
 import todoListenerMiddleware from "Domain/Todo/TodoListenerMiddleware";
 import dashboardListenerMiddleware from "Domain/Dashboard/DashboardListenerMiddleware";
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     pomodoro: pomodoroReducer,
     todo: todoReducer,
     dashboard: dashboardReducer,
+    projects: projectsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(

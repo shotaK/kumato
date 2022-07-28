@@ -5,12 +5,16 @@ import TodoListActions from "Components/Todo/TodoListActions";
 import { useAppSelector } from "Domain/Hooks";
 import { isTodoListEmptySelector } from "Domain/Todo/TodoSelectors";
 import EmptyTodoListPlaceholder from "Components/Todo/EmptyTodoListPlaceholder";
+import Projects from "Components/Projects";
 
 const Todo = () => {
   const isTodoListEmpty = useAppSelector(isTodoListEmptySelector);
   return (
     <div>
-      {!isTodoListEmpty && (
+        <Projects />
+
+
+        {!isTodoListEmpty && (
         <Container className="flex justify-between mb-2">
           <TodoListActions />
         </Container>

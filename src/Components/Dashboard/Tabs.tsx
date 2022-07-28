@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 import { MainTab, updateMainTab } from "Domain/Dashboard/DashboardSlice";
 import { mainTabSelector } from "Domain/Dashboard/DashboardSelector";
 import { useMemo } from "react";
+import Projects from "Components/Projects";
 
 const Tabs = () => {
   const dispatch = useAppDispatch();
@@ -39,11 +40,13 @@ const Tabs = () => {
   );
 
   return (
-    <TabsCommon
-      tabsData={tabs}
-      onTabChange={onTabChange}
-      selectedIndex={selectedTabIndex}
-    />
+    <>
+      <TabsCommon
+        tabsData={tabs}
+        onTabChange={onTabChange}
+        selectedIndex={selectedTabIndex}
+      />
+    </>
   );
 };
 
