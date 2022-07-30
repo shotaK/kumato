@@ -1,9 +1,9 @@
 import { useAppSelector } from "Domain/Hooks";
-import { todoListSelector } from "Domain/Todo/TodoSelectors";
+import { todoListBySelectedProjectSelector } from "Domain/Todo/TodoSelectors";
 import TodoItem from "Components/Todo/TodoItem";
 
 const TodoList = () => {
-  const todoList = useAppSelector(todoListSelector);
+  const todoList = useAppSelector(todoListBySelectedProjectSelector);
   return (
     <ul>
       {todoList.map((todo, index) => (

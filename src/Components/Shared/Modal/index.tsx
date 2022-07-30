@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, ReactNode } from "react";
+import ModalCloseButton from "Components/Shared/Modal/ModalCloseButton";
 
 const Modal = ({
   isOpen,
@@ -55,6 +56,8 @@ const Modal = ({
                     </Dialog.Title>
                     {children}
                   </Dialog.Panel>
+
+                  <ModalCloseButton />
                 </div>
               </Transition.Child>
             </div>

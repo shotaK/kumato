@@ -27,9 +27,7 @@ const ProjectUpdateForm = ({
       })
     );
 
-    if (!selectedProject) {
-      dispatch(selectProject(projectId));
-    }
+    dispatch(selectProject(projectId));
 
     if (onProjectAdd) {
       onProjectAdd();
@@ -48,7 +46,7 @@ const ProjectUpdateForm = ({
       )}
       <input
         type="text"
-        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500 dark:shadow-sm-light mb-5 transition duration-100"
+        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-sky-500 focus:border-sky-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500 dark:shadow-sm-light mb-5 transition duration-100"
         placeholder="Project name"
         autoFocus
         required
@@ -58,7 +56,7 @@ const ProjectUpdateForm = ({
 
       <button
         type="submit"
-        className="text-white bg-sky-700 hover:bg-sky-800 flex px-6 h-[40px] text-white rounded-sm transition-colors duration-300 items-center"
+        className="text-white bg-sky-700 hover:bg-sky-800 flex px-5 py-2 text-white rounded-sm transition-colors duration-300 items-center"
       >
         <span className="text-sm font-medium">Add</span>
       </button>

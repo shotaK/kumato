@@ -20,4 +20,5 @@ export interface Todo {
   isComplete: boolean;
   priorityId?: string;
   status: TodoStatus;
+  projectId?: string;
 }

@@ -11,7 +11,8 @@ import { initializeDashboardData } from "Domain/Dashboard/DashboardSlice";
 function App() {
   const dispatch = useAppThunkDispatch();
 
-  const { defaultStorageDataFetched } = useAppSelector(pomodoroSelector);
+  const { defaultStorageDataFetched: defaultPomodoroStorageDataFetched } =
+    useAppSelector(pomodoroSelector);
 
   useStorageChange();
 
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <div className="py-6 w-96 mx-auto bg-[#2a2727]">
-      {defaultStorageDataFetched && <Dashboard />}
+      {defaultPomodoroStorageDataFetched && <Dashboard />}
     </div>
   );
 }

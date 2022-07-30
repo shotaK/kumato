@@ -12,10 +12,12 @@ import { StorageApiType } from "Domain/StorageApi/Types";
 
 export interface TodoState {
   todoList: Array<Todo>;
+  defaultTodoDataFetched?: boolean;
 }
 
 export const todoInitialState: TodoState = {
   todoList: [],
+  defaultTodoDataFetched: false,
 };
 
 export const todoSlice = createSlice({
@@ -91,6 +93,10 @@ export const todoSlice = createSlice({
 
       return { ...state, ...data };
     },
+
+    updateDefaultTodoDataFetched: (state, action) => {
+      state.defaultTodoDataFetched = action.payload;
+    },
   },
 });
 
@@ -103,6 +109,7 @@ export const {
   moveTodoItem,
   deleteCompletedTodos,
   provideDefaultStorageData,
+  updateDefaultTodoDataFetched,
 } = todoSlice.actions;
 
 export const initializeTodoData =
@@ -120,6 +127,8 @@ export const initializeTodoData =
     } else {
       dispatch(provideDefaultStorageData(todo));
     }
+
+    dispatch(updateDefaultTodoDataFetched(true));
   };
 
 export default todoSlice.reducer;
