@@ -10,6 +10,7 @@ import isEmpty from "lodash.isempty";
 export const MainTab = {
   pomodoro: "pomodoro",
   todo: "todo",
+  daily: "daily",
 } as const;
 
 export type MainTab = typeof MainTab[keyof typeof MainTab];

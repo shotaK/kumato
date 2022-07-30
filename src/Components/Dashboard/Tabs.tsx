@@ -1,12 +1,12 @@
 import TabsCommon from "Components/Shared/Tabs";
 import Pomodoro from "Components/Pomodoro";
 import Todo from "Components/Todo";
-import { BadgeCheckIcon, ClockIcon } from "@heroicons/react/outline";
+import { BadgeCheckIcon, ClockIcon, NewspaperIcon } from "@heroicons/react/outline";
 import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 import { MainTab, updateMainTab } from "Domain/Dashboard/DashboardSlice";
 import { mainTabSelector } from "Domain/Dashboard/DashboardSelector";
 import { useMemo } from "react";
-import Projects from "Components/Projects";
+import Daily from "Components/Daily";
 
 const Tabs = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +29,12 @@ const Tabs = () => {
         label: "Todo",
         content: <Todo />,
         icon: BadgeCheckIcon,
+      },
+      {
+        id: MainTab.todo,
+        label: "Daily",
+        content: <Daily />,
+        icon: NewspaperIcon,
       },
     ],
     []

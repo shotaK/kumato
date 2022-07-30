@@ -1,7 +1,7 @@
 const ModalCloseButton = () => {
   return (
     <button
-      className="absolute -top-3 right-0 border-gray-300 p-1 bg-gray-200 hover:text-gray-700 focus:outline-none focus:text-gray-700 shadow rounded-full"
+      className="absolute -top-3 right-2 border-gray-300 p-1 bg-gray-200 hover:text-gray-700 focus:outline-none focus:text-gray-700 shadow rounded-full"
       aria-label="Close"
     >
       <svg
