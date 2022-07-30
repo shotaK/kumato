@@ -1,16 +1,21 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ThunkAppDispatch} from "Domain/Store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ThunkAppDispatch } from "Domain/Store";
 import isEmpty from "lodash.isempty";
-import {getAllStorageSyncData, setDefaultAllStorageSyncData,} from "Domain/StorageApi/Actions";
-import {StorageApiType} from "Domain/StorageApi/Types";
-import {Project} from "Domain/Projects/Types";
+import {
+  getAllStorageSyncData,
+  setDefaultAllStorageSyncData,
+} from "Domain/StorageApi/Actions";
+import { StorageApiType } from "Domain/StorageApi/Types";
+import { Project } from "Domain/Projects/Types";
 
 export interface ProjectsState {
   projectsList: Array<Project>;
+  selectedProjectId: string;
 }
 
 export const projectsInitialState: ProjectsState = {
   projectsList: [],
+  selectedProjectId: null,
 };
 
 export const projectsSlice = createSlice({
@@ -19,6 +24,10 @@ export const projectsSlice = createSlice({
   reducers: {
     addProject: (state, action: PayloadAction<Project>) => {
       state.projectsList.push(action.payload);
+    },
+
+    selectProject: (state, action: PayloadAction<string>) => {
+      state.selectedProjectId = action.payload;
     },
 
     updateProject: (
@@ -55,14 +64,14 @@ export const {
   addProject,
   updateProject,
   deleteProject,
+  selectProject,
   provideDefaultStorageData,
 } = projectsSlice.actions;
 
 export const initializeProjectData =
   () => async (dispatch: ThunkAppDispatch, getState: any) => {
-    const allStorageData: { project?: ProjectsState } = await getAllStorageSyncData(
-      StorageApiType.sync
-    );
+    const allStorageData: { project?: ProjectsState } =
+      await getAllStorageSyncData(StorageApiType.sync);
     const project = allStorageData?.project;
 
     if (isEmpty(project)) {

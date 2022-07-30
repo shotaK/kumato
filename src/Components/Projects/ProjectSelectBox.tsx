@@ -1,25 +1,29 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import { projectsListSelector } from "Domain/Projects/ProjectsSelectors";
-import { useAppSelector } from "Domain/Hooks";
+import {
+  projectsListSelector,
+  selectedProjectSelector,
+} from "Domain/Projects/ProjectsSelectors";
+import { useAppDispatch, useAppSelector } from "Domain/Hooks";
+import { Project } from "Domain/Projects/Types";
+import { selectProject } from "Domain/Projects/ProjectsSlice";
 
 const ProjectSelectBox = () => {
   const projectsList = useAppSelector(projectsListSelector);
-  const [selected, setSelected] = useState(
-    projectsList.length ? projectsList[0] : null
-  );
+  const dispatch = useAppDispatch();
+  const selectedProject = useAppSelector(selectedProjectSelector);
 
-  if (projectsList.length === 0) {
-    return null;
-  }
+  const handleSelectProject = (project: Project) => {
+    dispatch(selectProject(project.id));
+  };
 
   return (
     <div className="w-60">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selectedProject} onChange={handleSelectProject}>
         <div className="relative">
-          <Listbox.Button className="relative w-full cursor-default rounded-sm bg-white py-1 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selected.title}</span>
+          <Listbox.Button className="relative w-full cursor-default rounded-sm bg-coolGray-100 py-1 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate">{selectedProject.title}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon
                 className="h-5 w-5 text-gray-400"
@@ -33,7 +37,7 @@ const ProjectSelectBox = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-sm bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-sm bg-coolGray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
               {projectsList.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}

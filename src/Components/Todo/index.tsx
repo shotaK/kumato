@@ -6,26 +6,36 @@ import { useAppSelector } from "Domain/Hooks";
 import { isTodoListEmptySelector } from "Domain/Todo/TodoSelectors";
 import EmptyTodoListPlaceholder from "Components/Todo/EmptyTodoListPlaceholder";
 import Projects from "Components/Projects";
+import ProjectUpdateForm from "Components/Projects/ProjectUpdateForm";
+import { projectsEmptySelector } from "Domain/Projects/ProjectsSelectors";
 
 const Todo = () => {
   const isTodoListEmpty = useAppSelector(isTodoListEmptySelector);
+  const projectsEmpty = useAppSelector(projectsEmptySelector);
   return (
     <div>
-        <Projects />
-
-
-        {!isTodoListEmpty && (
-        <Container className="flex justify-between mb-2">
-          <TodoListActions />
+      {projectsEmpty ? (
+        <Container adjustSpacing>
+          <ProjectUpdateForm title="Create your first project:" />
         </Container>
+      ) : (
+        <>
+          <Projects />
+
+          {!isTodoListEmpty && (
+            <Container className="flex justify-between mb-2">
+              <TodoListActions />
+            </Container>
+          )}
+          {isTodoListEmpty && <EmptyTodoListPlaceholder />}
+          <div className="mb-6">
+            <TodoList />
+          </div>
+          <Container>
+            <AddTodoItem />
+          </Container>
+        </>
       )}
-      {isTodoListEmpty && <EmptyTodoListPlaceholder />}
-      <div className="mb-6">
-        <TodoList />
-      </div>
-      <Container>
-        <AddTodoItem />
-      </Container>
     </div>
   );
 };
