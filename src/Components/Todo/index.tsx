@@ -18,6 +18,7 @@ const Todo = () => {
   const projectsEmpty = useAppSelector(projectsEmptySelector);
   const { defaultTodoDataFetched } = useAppSelector(todoSelector);
 
+  // Todo: switch condition publishing
   if (defaultTodoDataFetched) {
     return <ContentDelayedSpinner />;
   }

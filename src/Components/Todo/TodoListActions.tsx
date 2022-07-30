@@ -1,21 +1,23 @@
 import { SortAscendingIcon, FolderRemoveIcon } from "@heroicons/react/outline";
 import "rc-tooltip/assets/bootstrap_white.css";
 import Tooltip from "Components/Shared/Tooltip";
-import { useAppDispatch } from "Domain/Hooks";
+import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 import {
   deleteCompletedTodos,
   sortTodosByPriority,
 } from "Domain/Todo/TodoSlice";
+import { selectedProjectIdSelector } from "Domain/Projects/ProjectsSelectors";
 
 const TodoListActions = () => {
   const dispatch = useAppDispatch();
+  const projectId = useAppSelector(selectedProjectIdSelector);
 
   const handleSortTodos = () => {
-    dispatch(sortTodosByPriority());
+    dispatch(sortTodosByPriority({ projectId }));
   };
 
   const handleDeleteCompleted = () => {
-    dispatch(deleteCompletedTodos());
+    dispatch(deleteCompletedTodos({ projectId }));
   };
 
   return (

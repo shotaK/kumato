@@ -1,9 +1,10 @@
 import { Todo } from "Domain/Todo/Types";
-import { useAppDispatch } from "Domain/Hooks";
+import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 import { moveTodoItem } from "Domain/Todo/TodoSlice";
 import { ReactNode, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Identifier, XYCoord } from "dnd-core";
+import { selectedProjectIdSelector } from "Domain/Projects/ProjectsSelectors";
 
 export const ItemTypes = {
   TODO: "todo",
@@ -29,6 +30,7 @@ const TodoDraggable = ({
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLLIElement>(null);
   const { id } = todo;
+  const projectId = useAppSelector(selectedProjectIdSelector);
 
   const moveTodo = (dragIndex: number, hoverIndex: number) => {
     dispatch(
@@ -36,6 +38,7 @@ const TodoDraggable = ({
         dragIndex,
         hoverIndex,
         todoId: todo.id,
+        projectId,
       })
     );
   };

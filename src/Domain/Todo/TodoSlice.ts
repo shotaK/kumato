@@ -1,7 +1,11 @@
 import { Todo, TodoStatus } from "Domain/Todo/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { moveElement, sortAlphaNum } from "Utils/list";
-import { getTodoPriority } from "Domain/Todo/Utils";
+import {
+  getTodoPriority,
+  todosByNotProjectId,
+  todosByProjectId,
+} from "Domain/Todo/Utils";
 import { ThunkAppDispatch } from "Domain/Store";
 import isEmpty from "lodash.isempty";
 import {
@@ -55,8 +59,16 @@ export const todoSlice = createSlice({
       );
     },
 
-    sortTodosByPriority: (state) => {
-      state.todoList = state.todoList.sort((a, b) => {
+    sortTodosByPriority: (
+      state,
+      payload: PayloadAction<{ projectId: string }>
+    ) => {
+      const { projectId } = payload.payload;
+      state.todoList = state.todoList.sort((a: Todo, b: Todo) => {
+        if (a.projectId !== projectId || b.projectId !== projectId) {
+          return 0;
+        }
+
         if (b.isComplete) {
           return -1;
         }
@@ -71,8 +83,14 @@ export const todoSlice = createSlice({
       });
     },
 
-    deleteCompletedTodos: (state) => {
-      state.todoList = state.todoList.filter(({ isComplete }) => !isComplete);
+    deleteCompletedTodos: (
+      state,
+      payload: PayloadAction<{ projectId: string }>
+    ) => {
+      state.todoList = state.todoList.filter(
+        ({ isComplete, projectId }) =>
+          payload.payload.projectId !== projectId || !isComplete
+      );
     },
 
     moveTodoItem(
@@ -81,11 +99,18 @@ export const todoSlice = createSlice({
         dragIndex: number;
         hoverIndex: number;
         todoId: string;
+        projectId: string;
       }>
     ) {
       const { dragIndex, hoverIndex } = action.payload;
+      const { projectId } = action.payload;
+      const todosByProject = todosByProjectId(state.todoList, projectId);
+      const todosByNotProject = todosByNotProjectId(state.todoList, projectId);
 
-      state.todoList = moveElement(state.todoList, dragIndex, hoverIndex);
+      state.todoList = [
+        ...moveElement(todosByProject, dragIndex, hoverIndex),
+        ...todosByNotProject,
+      ];
     },
 
     provideDefaultStorageData: (state, action) => {
