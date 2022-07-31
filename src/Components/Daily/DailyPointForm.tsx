@@ -7,13 +7,14 @@ import {
   DailyReportType,
   ReportsViewMode,
 } from "Domain/Daily/Types";
-import { useAppDispatch } from "Domain/Hooks";
+import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 import { addReportItem } from "Domain/Daily/DailySlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { dailySelector } from "Domain/Daily/DailySelectors";
 import isEmpty from "lodash.isempty";
 import ReportItem from "Components/Daily/ReportItem";
+import { selectedProjectIdSelector } from "Domain/Projects/ProjectsSelectors";
 
 const DailyPointForm = ({
   title,
@@ -26,6 +27,7 @@ const DailyPointForm = ({
 }) => {
   const dispatch = useAppDispatch();
   const { reportsViewMode } = useSelector(dailySelector);
+  const projectId = useAppSelector(selectedProjectIdSelector);
 
   const [description, setDescription] = useState("");
 
@@ -36,6 +38,7 @@ const DailyPointForm = ({
           id: nanoid(),
           description,
           type: reportType,
+          projectId,
         })
       );
 
@@ -46,7 +49,12 @@ const DailyPointForm = ({
   return (
     <div className="mb-6">
       <Container>
-        <label className="flex text-white text-md mb-2">{title}</label>
+        <label
+          className="flex text-white text-md mb-2"
+          htmlFor={`daily-point-form-input-${reportType}`}
+        >
+          {title}
+        </label>
       </Container>
       {reportsViewMode === ReportsViewMode.edit && (
         <Container className="mb-3">
@@ -57,6 +65,7 @@ const DailyPointForm = ({
             }}
             onSubmit={handleAddReportItem}
             inputPlaceholder={"Enter your daily goal"}
+            inputId={`daily-point-form-input-${reportType}`}
           />
         </Container>
       )}

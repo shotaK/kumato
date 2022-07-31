@@ -7,11 +7,13 @@ const InputButtonGroup = ({
   onSubmit,
   handleChange,
   inputPlaceholder,
+  inputId,
 }: {
   inputValue: string;
   onSubmit: () => void;
   handleChange: (inputValue: string) => void;
   inputPlaceholder: string;
+  inputId?: string;
 }) => {
   const onChange = (e: { target: HTMLInputElement }) => {
     const { value } = e.target;
@@ -31,6 +33,7 @@ const InputButtonGroup = ({
         placeholder={inputPlaceholder}
         onChange={onChange}
         value={inputValue}
+        id={inputId}
       />
 
       <button

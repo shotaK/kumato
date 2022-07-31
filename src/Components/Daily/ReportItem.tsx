@@ -32,7 +32,7 @@ const ReportItem = ({ reportItem }: { reportItem: DailyReportItem }) => {
     <li className="flex items-center hover:bg-[#4a4a4a] todo-item border-b border-b-neutral-500 first:border-t-neutral-500 first:border-t pl-4 py-1 pr-6 list-item-actionable">
       <Icon className={`h-5 w-5 text-${color}-500 ml-1.5`} />
 
-      <span className="pl-2 flex-1 break-all">{description}</span>
+      <span className="pl-2 flex-1 break-word">{description}</span>
 
       <button type="button" onClick={() => dispatch(deleteReportItem({ id }))}>
         <TrashIcon className="invisible h-5 w-5 text-red-600 ml-1.5 list-item-actionable-delete" />

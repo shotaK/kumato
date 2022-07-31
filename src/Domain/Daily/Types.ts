@@ -11,6 +11,7 @@ export interface DailyReportItem {
   id: string;
   type: DailyReportType;
   description: string;
+  projectId: string;
 }
 
 export const ReportsViewMode = {

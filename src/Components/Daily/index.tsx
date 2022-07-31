@@ -8,6 +8,7 @@ import {
 } from "Domain/Daily/DailySelectors";
 import { useAppSelector } from "Domain/Hooks";
 import ViewButton from "Components/Daily/ViewButton";
+import QuestionTooltip from "Components/Shared/Tooltip/QuestionTooltip";
 
 const Index = () => {
   const accomplishedReportsList = useAppSelector(
@@ -19,7 +20,13 @@ const Index = () => {
   return (
     <>
       <Container className="flex justify-between items-center mb-6">
-        <h3 className="text-white text-lg leading-none">Daily Standup</h3>
+        <h3 className="flex items-center text-white text-lg leading-none">
+          <span className="pr-1">Daily Standup</span>{" "}
+          <QuestionTooltip
+            overlayText='Each project has its own daily standup data.
+           If you would like to view other project"s daily standup data, switch the project from the "Todo" tab'
+          />
+        </h3>
 
         <ViewButton />
       </Container>
