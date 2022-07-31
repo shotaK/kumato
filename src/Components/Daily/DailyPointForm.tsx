@@ -1,11 +1,19 @@
 import Container from "Components/Shared/Layout/Container";
 import InputButtonGroup from "Components/Shared/Input/InputButtonGroup";
-import { CheckIcon, RefreshIcon, BanIcon } from "@heroicons/react/outline";
-import { Fragment, ReactNode, useMemo, useState } from "react";
-import { DailyReportItem, DailyReportType } from "Domain/Daily/Types";
+import { DotsHorizontalIcon } from "@heroicons/react/outline";
+import { ReactNode, useState } from "react";
+import {
+  DailyReportItem,
+  DailyReportType,
+  ReportsViewMode,
+} from "Domain/Daily/Types";
 import { useAppDispatch } from "Domain/Hooks";
 import { addReportItem } from "Domain/Daily/DailySlice";
 import { nanoid } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { dailySelector } from "Domain/Daily/DailySelectors";
+import isEmpty from "lodash.isempty";
+import ReportItem from "Components/Daily/ReportItem";
 
 const DailyPointForm = ({
   title,
@@ -17,22 +25,9 @@ const DailyPointForm = ({
   reportsList: DailyReportItem[];
 }) => {
   const dispatch = useAppDispatch();
+  const { reportsViewMode } = useSelector(dailySelector);
+
   const [description, setDescription] = useState("");
-
-  const [icon, color] = useMemo(() => {
-    switch (reportType) {
-      case "accomplished":
-        return [CheckIcon, "green"];
-      case "upcoming":
-        return [RefreshIcon, "orange"];
-      case "blocked":
-        return [BanIcon, "red"];
-      default:
-        return [Fragment, "white"];
-    }
-  }, [reportType]);
-
-  const Icon = icon;
 
   const handleAddReportItem = () => {
     if (description) {
@@ -53,26 +48,28 @@ const DailyPointForm = ({
       <Container>
         <label className="flex text-white text-md mb-2">{title}</label>
       </Container>
-      <Container className="mb-3">
-        <InputButtonGroup
-          inputValue={description}
-          handleChange={(value) => {
-            setDescription(value);
-          }}
-          onSubmit={handleAddReportItem}
-          inputPlaceholder={"Enter your daily goal"}
-        />
-      </Container>
-      <ul className="text-white text-sm list-none">
-        {reportsList.map(({ id, description }) => (
-          <li
-            key={id}
-            className="flex items-center hover:bg-[#4a4a4a] todo-item border-b border-b-neutral-500 first:border-t-neutral-500 first:border-t pl-4 py-1 pr-6"
-          >
-            <Icon className={`h-5 w-5 text-${color}-500 ml-1.5`} />
+      {reportsViewMode === ReportsViewMode.edit && (
+        <Container className="mb-3">
+          <InputButtonGroup
+            inputValue={description}
+            handleChange={(value) => {
+              setDescription(value);
+            }}
+            onSubmit={handleAddReportItem}
+            inputPlaceholder={"Enter your daily goal"}
+          />
+        </Container>
+      )}
 
-            <span className="pl-2 flex-1 break-all">{description}</span>
-          </li>
+      {reportsViewMode === ReportsViewMode.view && isEmpty(reportsList) && (
+        <Container className="mb-3">
+          <DotsHorizontalIcon className="text-white h-5" />
+        </Container>
+      )}
+
+      <ul className="text-white text-sm list-none">
+        {reportsList.map((reportItem) => (
+          <ReportItem key={reportItem.id} reportItem={reportItem} />
         ))}
       </ul>
     </div>

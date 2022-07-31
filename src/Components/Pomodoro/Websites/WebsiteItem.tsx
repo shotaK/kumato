@@ -12,8 +12,6 @@ import {
   unblockWebsite,
 } from "Domain/Pomodoro/PomodoroSlice";
 
-import "./WebsiteItem.module.scss";
-
 const WebsiteItem = ({
   isBlocked,
   websiteUrl,
@@ -24,7 +22,7 @@ const WebsiteItem = ({
   const dispatch = useAppDispatch();
 
   return (
-    <li className="flex items-center mb-0.5 hover:bg-[#4a4a4a] px-6 py-1 website-item">
+    <li className="flex items-center mb-0.5 hover:bg-[#4a4a4a] px-6 py-1 list-item-actionable">
       {isBlocked ? (
         <button
           type="button"
@@ -47,7 +45,7 @@ const WebsiteItem = ({
         {websiteUrl}
       </span>
       <button type="button" onClick={() => dispatch(deleteWebsite(websiteUrl))}>
-        <TrashIcon className="invisible h-5 w-5 text-red-600 ml-1.5 website-item-delete" />
+        <TrashIcon className="invisible h-5 w-5 text-red-600 ml-1.5 list-item-actionable-delete" />
       </button>
     </li>
   );

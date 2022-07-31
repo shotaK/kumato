@@ -7,6 +7,7 @@ import {
   pendingReportsListSelector,
 } from "Domain/Daily/DailySelectors";
 import { useAppSelector } from "Domain/Hooks";
+import ViewButton from "Components/Daily/ViewButton";
 
 const Index = () => {
   const accomplishedReportsList = useAppSelector(
@@ -17,8 +18,10 @@ const Index = () => {
 
   return (
     <>
-      <Container>
-        <h3 className="text-white text-lg mb-4">Daily Standup</h3>
+      <Container className="flex justify-between items-center mb-6">
+        <h3 className="text-white text-lg leading-none">Daily Standup</h3>
+
+        <ViewButton />
       </Container>
 
       <DailyPointForm

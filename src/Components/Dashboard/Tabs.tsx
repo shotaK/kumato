@@ -31,7 +31,7 @@ const Tabs = () => {
         icon: BadgeCheckIcon,
       },
       {
-        id: MainTab.todo,
+        id: MainTab.daily,
         label: "Daily",
         content: <Daily />,
         icon: NewspaperIcon,

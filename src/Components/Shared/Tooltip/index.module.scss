@@ -35,3 +35,11 @@
     }
   }
 }
+
+:global(.list-item-actionable) {
+  &:hover {
+    :global(.list-item-actionable-delete) {
+      visibility: visible;
+    }
+  }
+}

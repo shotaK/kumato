@@ -12,3 +12,11 @@ export interface DailyReportItem {
   type: DailyReportType;
   description: string;
 }
+
+export const ReportsViewMode = {
+  edit: "edit",
+  view: "view",
+} as const;
+
+export type ReportsViewMode =
+  typeof ReportsViewMode[keyof typeof ReportsViewMode];
