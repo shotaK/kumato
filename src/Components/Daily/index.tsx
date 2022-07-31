@@ -21,10 +21,10 @@ const Index = () => {
     <>
       <Container className="flex justify-between items-center mb-6">
         <h3 className="flex items-center text-white text-lg leading-none">
-          <span className="pr-1">Daily Standup</span>{" "}
+          <span className="pr-1">Daily Standup</span>
           <QuestionTooltip
             overlayText='Each project has its own daily standup data.
-           If you would like to view other project"s daily standup data, switch the project from the "Todo" tab'
+           If you would like to view another project&rsquo;s daily standup data, switch the project from the "Todo" tab.'
           />
         </h3>
 

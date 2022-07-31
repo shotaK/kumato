@@ -7,6 +7,7 @@ import useStorageChange from "Hooks/useStorageChange";
 import Dashboard from "Components/Dashboard";
 import { initializeTodoData } from "Domain/Todo/TodoSlice";
 import { initializeDashboardData } from "Domain/Dashboard/DashboardSlice";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useAppThunkDispatch();
@@ -25,6 +26,7 @@ function App() {
   return (
     <div className="py-6 w-96 mx-auto bg-[#2a2727]">
       {defaultPomodoroStorageDataFetched && <Dashboard />}
+      <Toaster />
     </div>
   );
 }

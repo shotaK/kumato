@@ -11,8 +11,9 @@ import TodoPriorityList from "Components/Todo/TodoPriorityList";
 import TodoStatusActions from "Components/Todo/TodoStatusActions";
 import TodoText from "Components/Todo/TodoText";
 import classNames from "classnames";
+import TodoMoveToDailyButton from "Components/Todo/TodoMoveToDailyButton";
 
-const TodoPrimary = ({
+const TodoExtendedMenu = ({
   todo,
   setIsEditing,
 }: {
@@ -60,8 +61,9 @@ const TodoPrimary = ({
                     <span className="text-sm">Priority:</span>
                     <TodoPriorityList todo={todo} />
                   </div>
+                  <TodoMoveToDailyButton todo={todo} />
                   <button type="button" onClick={() => setIsEditing(true)}>
-                    <PencilAltIcon className="h-5 w-5 text-yellow-600" />
+                    <PencilAltIcon className="h-5 w-5 text-yellow-600 ml-1" />
                   </button>
                   <button type="button" onClick={handleDeleteTodo}>
                     <TrashIcon className="h-5 w-5 text-red-600 ml-1" />
@@ -76,4 +78,4 @@ const TodoPrimary = ({
   );
 };
 
-export default TodoPrimary;
+export default TodoExtendedMenu;

@@ -4,7 +4,7 @@ import { useAppDispatch } from "Domain/Hooks";
 import { toggleTodoStatus } from "Domain/Todo/TodoSlice";
 import { useState } from "react";
 import TodoEdit from "Components/Todo/TodoEdit";
-import TodoPrimary from "Components/Todo/TodoPrimary";
+import TodoExtendedMenu from "Components/Todo/TodoExtendedMenu";
 import { bool, number, shape, string } from "prop-types";
 import { getTodoPriority } from "Domain/Todo/Utils";
 import TodoDraggable from "Components/Todo/TodoDraggable";
@@ -49,7 +49,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         {isEditing ? (
           <TodoEdit todo={todo} setIsEditing={setIsEditing} />
         ) : (
-          <TodoPrimary todo={todo} setIsEditing={setIsEditing} />
+          <TodoExtendedMenu todo={todo} setIsEditing={setIsEditing} />
         )}
       </div>
     </TodoDraggable>
