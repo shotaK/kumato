@@ -17,10 +17,12 @@ export type MainTab = typeof MainTab[keyof typeof MainTab];
 
 export interface DashboardState {
   mainTab: MainTab;
+  tooltipsDisabled: boolean;
 }
 
 export const initialState: DashboardState = {
   mainTab: MainTab.pomodoro,
+  tooltipsDisabled: false,
 };
 
 export const dashboardSlice = createSlice({
@@ -35,11 +37,18 @@ export const dashboardSlice = createSlice({
 
       return { ...state, ...data };
     },
+
+    updateTooltipsDisabled: (state, action: PayloadAction<boolean>) => {
+      state.tooltipsDisabled = action.payload;
+    },
   },
 });
 
-export const { updateMainTab, provideDefaultStorageData } =
-  dashboardSlice.actions;
+export const {
+  updateMainTab,
+  provideDefaultStorageData,
+  updateTooltipsDisabled,
+} = dashboardSlice.actions;
 
 export const initializeDashboardData =
   () => async (dispatch: ThunkAppDispatch, getState: any) => {

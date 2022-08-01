@@ -1,5 +1,12 @@
 import { DailyReportItem, ReportsViewMode } from "Domain/Daily/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ThunkAppDispatch } from "Domain/Store";
+import {
+  getAllStorageSyncData,
+  setDefaultAllStorageSyncData,
+} from "Domain/StorageApi/Actions";
+import { StorageApiType } from "Domain/StorageApi/Types";
+import isEmpty from "lodash.isempty";
 
 export interface DailyState {
   reportItemsList: Array<DailyReportItem>;
@@ -34,6 +41,12 @@ export const dailySlice = createSlice({
     updateTodoSyncActive: (state, action: PayloadAction<boolean>) => {
       state.todoSyncActive = action.payload;
     },
+
+    provideDefaultDailyStorageData: (state, action) => {
+      const data = action.payload;
+
+      return { ...state, ...data };
+    },
   },
 });
 
@@ -42,6 +55,23 @@ export const {
   changeReportsViewMode,
   deleteReportItem,
   updateTodoSyncActive,
+  provideDefaultDailyStorageData,
 } = dailySlice.actions;
+
+export const initializeDailyData = () => async (dispatch: ThunkAppDispatch) => {
+  const allStorageData: { daily?: DailyState } = await getAllStorageSyncData(
+    StorageApiType.sync
+  );
+  const daily = allStorageData?.daily;
+
+  if (isEmpty(daily)) {
+    await setDefaultAllStorageSyncData({
+      storageApiType: StorageApiType.sync,
+      data: { daily: dailyInitialState },
+    });
+  } else {
+    dispatch(provideDefaultDailyStorageData(daily));
+  }
+};
 
 export default dailySlice.reducer;

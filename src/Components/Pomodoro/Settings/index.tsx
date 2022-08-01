@@ -8,6 +8,7 @@ import {
   changeBreakDuration,
   changeCycleDuration,
 } from "Domain/Pomodoro/PomodoroSlice";
+import TooltipsToggleButton from "Components/Pomodoro/Settings/TooltipsToggleButton";
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ const Settings = () => {
         />
       </Label>
 
-      <Label>
+      <Label className="mb-3">
         <span className="block mb-1">Break duration:</span>
         <InputNumber
           type="text"
@@ -44,6 +45,8 @@ const Settings = () => {
           onUpdate={(value) => dispatch(changeBreakDuration(value))}
         />
       </Label>
+
+      <TooltipsToggleButton />
     </div>
   );
 };

@@ -138,7 +138,7 @@ export const {
 } = todoSlice.actions;
 
 export const initializeTodoData =
-  () => async (dispatch: ThunkAppDispatch, getState: any) => {
+  () => async (dispatch: ThunkAppDispatch) => {
     const allStorageData: { todo?: TodoState } = await getAllStorageSyncData(
       StorageApiType.sync
     );

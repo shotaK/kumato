@@ -1,8 +1,16 @@
 import Tooltip from "Components/Shared/Tooltip/index";
 import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
 import { ReactNode } from "react";
+import { useAppSelector } from "Domain/Hooks";
+import { dashboardSelector } from "Domain/Dashboard/DashboardSelector";
 
 const QuestionTooltip = ({ overlayText }: { overlayText: ReactNode }) => {
+  const { tooltipsDisabled } = useAppSelector(dashboardSelector);
+
+  if (tooltipsDisabled) {
+    return null;
+  }
+
   return (
     <Tooltip
       placement="right"

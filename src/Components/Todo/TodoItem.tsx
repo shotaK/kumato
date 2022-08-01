@@ -8,6 +8,7 @@ import TodoExtendedMenu from "Components/Todo/TodoExtendedMenu";
 import { bool, number, shape, string } from "prop-types";
 import { getTodoPriority } from "Domain/Todo/Utils";
 import TodoDraggable from "Components/Todo/TodoDraggable";
+import Checkbox from "Components/Shared/Input/Checkbox";
 
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   const { isComplete } = todo;
@@ -33,15 +34,10 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
       </div>
 
       <div className="flex items-center">
-        <input
-          id="remember-me"
-          name="remember-me"
-          type="checkbox"
-          className={classNames(
-            "h-4 w-4 text-green-600 rounded focus:ring-offset-0 ring-0 focus:ring-0 focus:ring-offset-0 mr-1.5"
-          )}
+        <Checkbox
           onChange={toggleTodo}
           checked={isComplete}
+          name="todo-status"
         />
       </div>
 

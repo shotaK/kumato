@@ -1,8 +1,7 @@
-import React, { ReactNode, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "Domain/Hooks";
+import React, { ChangeEvent, ReactNode, useState } from "react";
+import { useAppDispatch } from "Domain/Hooks";
 import { addProject, selectProject } from "Domain/Projects/ProjectsSlice";
 import { nanoid } from "@reduxjs/toolkit";
-import { selectedProjectSelector } from "Domain/Projects/ProjectsSelectors";
 
 const ProjectUpdateForm = ({
   onProjectAdd,
@@ -12,18 +11,28 @@ const ProjectUpdateForm = ({
   title?: ReactNode;
 }) => {
   const dispatch = useAppDispatch();
-  const selectedProject = useAppSelector(selectedProjectSelector);
+  const [name, setName] = useState("");
+  const [showError, setShowError] = useState(false);
 
-  const inputEl = useRef(null);
+  const nameTooLong = name && name.length > 30;
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
 
   const addNewProject = (event) => {
     event.preventDefault();
+
+    if (!name || nameTooLong) {
+      setShowError(true);
+      return;
+    }
     const projectId = nanoid();
 
     dispatch(
       addProject({
         id: projectId,
-        title: inputEl.current.value,
+        title: name,
       })
     );
 
@@ -44,15 +53,23 @@ const ProjectUpdateForm = ({
           {title}
         </label>
       )}
-      <input
-        type="text"
-        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-sky-500 focus:border-sky-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500 dark:shadow-sm-light mb-5 transition duration-100"
-        placeholder="Project name"
-        autoFocus
-        required
-        ref={inputEl}
-        id="project-name"
-      />
+      <div className="flex flex-col mb-5">
+        <input
+          type="text"
+          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-sky-500 focus:border-sky-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500 dark:shadow-sm-light transition duration-100 mb-2"
+          placeholder="Project name"
+          autoFocus
+          id="project-name"
+          value={name}
+          onChange={handleChange}
+        />
+        {showError && (
+          <span className="flex text-red-500 text-sm">
+            {!name && "Project name is required"}
+            {nameTooLong && "Project name is too long"}
+          </span>
+        )}
+      </div>
 
       <button
         type="submit"

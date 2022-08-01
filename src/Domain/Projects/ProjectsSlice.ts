@@ -52,7 +52,7 @@ export const projectsSlice = createSlice({
       );
     },
 
-    provideDefaultStorageData: (state, action) => {
+    provideDefaultProjectStorageData: (state, action) => {
       const data = action.payload;
 
       return { ...state, ...data };
@@ -65,11 +65,11 @@ export const {
   updateProject,
   deleteProject,
   selectProject,
-  provideDefaultStorageData,
+  provideDefaultProjectStorageData,
 } = projectsSlice.actions;
 
 export const initializeProjectData =
-  () => async (dispatch: ThunkAppDispatch, getState: any) => {
+  () => async (dispatch: ThunkAppDispatch) => {
     const allStorageData: { project?: ProjectsState } =
       await getAllStorageSyncData(StorageApiType.sync);
     const project = allStorageData?.project;
@@ -80,7 +80,7 @@ export const initializeProjectData =
         data: { project: projectsInitialState },
       });
     } else {
-      dispatch(provideDefaultStorageData(project));
+      dispatch(provideDefaultProjectStorageData(project));
     }
   };
 

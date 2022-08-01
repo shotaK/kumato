@@ -8,6 +8,8 @@ import Dashboard from "Components/Dashboard";
 import { initializeTodoData } from "Domain/Todo/TodoSlice";
 import { initializeDashboardData } from "Domain/Dashboard/DashboardSlice";
 import { Toaster } from "react-hot-toast";
+import { initializeProjectData } from "Domain/Projects/ProjectsSlice";
+import { initializeDailyData } from "Domain/Daily/DailySlice";
 
 function App() {
   const dispatch = useAppThunkDispatch();
@@ -18,9 +20,11 @@ function App() {
   useStorageChange();
 
   useEffect(() => {
-    dispatch(initializePomodoroData());
     dispatch(initializeTodoData());
     dispatch(initializeDashboardData());
+    dispatch(initializeProjectData());
+    dispatch(initializeDailyData());
+    dispatch(initializePomodoroData());
   }, [dispatch]);
 
   return (
