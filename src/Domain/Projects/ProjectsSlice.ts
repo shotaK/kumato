@@ -80,10 +80,6 @@ export const deleteProjectWithItsItems =
     const projects = projectsListSelector(getState());
     const selectedProject = selectedProjectIdSelector(getState());
 
-    console.log("---------");
-    console.log(selectedProject);
-    console.log(projectId);
-
     if (projects.length > 1 && selectedProject === projectId) {
       const nextSelectedProjectId = projects.find(
         (project) => project.id !== projectId
