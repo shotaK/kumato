@@ -122,6 +122,15 @@ export const todoSlice = createSlice({
     updateDefaultTodoDataFetched: (state, action) => {
       state.defaultTodoDataFetched = action.payload;
     },
+
+    deleteAllTodosByProjectId: (
+      state,
+      action: PayloadAction<{ projectId: string }>
+    ) => {
+      state.todoList = state.todoList.filter(
+        ({ projectId }) => projectId !== action.payload.projectId
+      );
+    },
   },
 });
 
@@ -135,25 +144,25 @@ export const {
   deleteCompletedTodos,
   provideDefaultStorageData,
   updateDefaultTodoDataFetched,
+  deleteAllTodosByProjectId,
 } = todoSlice.actions;
 
-export const initializeTodoData =
-  () => async (dispatch: ThunkAppDispatch) => {
-    const allStorageData: { todo?: TodoState } = await getAllStorageSyncData(
-      StorageApiType.sync
-    );
-    const todo = allStorageData?.todo;
+export const initializeTodoData = () => async (dispatch: ThunkAppDispatch) => {
+  const allStorageData: { todo?: TodoState } = await getAllStorageSyncData(
+    StorageApiType.sync
+  );
+  const todo = allStorageData?.todo;
 
-    if (isEmpty(todo)) {
-      await setDefaultAllStorageSyncData({
-        storageApiType: StorageApiType.sync,
-        data: { todo: todoInitialState },
-      });
-    } else {
-      dispatch(provideDefaultStorageData(todo));
-    }
+  if (isEmpty(todo)) {
+    await setDefaultAllStorageSyncData({
+      storageApiType: StorageApiType.sync,
+      data: { todo: todoInitialState },
+    });
+  } else {
+    dispatch(provideDefaultStorageData(todo));
+  }
 
-    dispatch(updateDefaultTodoDataFetched(true));
-  };
+  dispatch(updateDefaultTodoDataFetched(true));
+};
 
 export default todoSlice.reducer;

@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import {
@@ -8,11 +8,29 @@ import {
 import { useAppDispatch, useAppSelector } from "Domain/Hooks";
 import { Project } from "Domain/Projects/Types";
 import { selectProject } from "Domain/Projects/ProjectsSlice";
+import DeleteProjectButton from "Components/Projects/DeleteProjectButton";
+import Modal from "Components/Shared/Modal";
+import RemoveProjectForm from "Components/Projects/RemoveProjectForm";
 
 const ProjectSelectBox = () => {
   const projectsList = useAppSelector(projectsListSelector);
   const dispatch = useAppDispatch();
   const selectedProject = useAppSelector(selectedProjectSelector);
+  const [deleteProjectOpen, setDeleteProjectOpen] = useState<{
+    open: boolean;
+    project?: Project;
+  }>({
+    open: false,
+    project: null,
+  });
+
+  const closeDeleteProjectModal = () => {
+    setDeleteProjectOpen({ open: false, project: null });
+  };
+
+  const openDeleteProjectModal = ({ project }) => {
+    setDeleteProjectOpen({ open: true, project });
+  };
 
   const handleSelectProject = (project: Project) => {
     dispatch(selectProject(project.id));
@@ -38,31 +56,39 @@ const ProjectSelectBox = () => {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-sm bg-coolGray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
-              {projectsList.map((person, personIdx) => (
+              {projectsList.map((project) => (
                 <Listbox.Option
-                  key={personIdx}
+                  key={project.id}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-1 pl-7 pr-4 ${
+                    `relative cursor-default select-none py-1 pl-7 pr-2 ${
                       active ? "bg-amber-100 text-amber-900" : "text-gray-900"
                     }`
                   }
-                  value={person}
+                  value={project}
                 >
                   {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
-                        }`}
-                      >
-                        {person.title}
-                      </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-1 text-orange-500">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                    <div className="flex list-item-actionable">
+                      <div className="flex-1">
+                        <span
+                          className={`block truncate ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          {project.title}
                         </span>
-                      ) : null}
-                    </>
+                        {selected ? (
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-1 text-orange-500">
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </div>
+
+                      <DeleteProjectButton
+                        openDeleteProjectModal={() =>
+                          openDeleteProjectModal({ project })
+                        }
+                      />
+                    </div>
                   )}
                 </Listbox.Option>
               ))}
@@ -70,6 +96,18 @@ const ProjectSelectBox = () => {
           </Transition>
         </div>
       </Listbox>
+
+      <Modal
+        title="Remove the project permanently?"
+        isOpen={deleteProjectOpen.open}
+        closeModal={closeDeleteProjectModal}
+        titleClassName="mb-1"
+      >
+        <RemoveProjectForm
+          project={deleteProjectOpen?.project}
+          closeDeleteProjectModal={closeDeleteProjectModal}
+        />
+      </Modal>
     </div>
   );
 };

@@ -47,6 +47,15 @@ export const dailySlice = createSlice({
 
       return { ...state, ...data };
     },
+
+    deleteAllReportsByProjectId: (
+      state,
+      action: PayloadAction<{ projectId: string }>
+    ) => {
+      state.reportItemsList = state.reportItemsList.filter(
+        (item) => item.projectId !== action.payload.projectId
+      );
+    },
   },
 });
 
@@ -56,6 +65,7 @@ export const {
   deleteReportItem,
   updateTodoSyncActive,
   provideDefaultDailyStorageData,
+  deleteAllReportsByProjectId,
 } = dailySlice.actions;
 
 export const initializeDailyData = () => async (dispatch: ThunkAppDispatch) => {

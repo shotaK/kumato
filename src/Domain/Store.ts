@@ -12,6 +12,8 @@ import projectsReducer from "Domain/Projects/ProjectsSlice";
 import dailyReducer from "Domain/Daily/DailySlice";
 import todoListenerMiddleware from "Domain/Todo/TodoListenerMiddleware";
 import dashboardListenerMiddleware from "Domain/Dashboard/DashboardListenerMiddleware";
+import projectsListenerMiddleware from "Domain/Projects/ProjectsListenerMiddleware";
+import dailyListenerMiddleware from "Domain/Daily/DailyListenerMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -24,7 +26,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(
       todoListenerMiddleware.middleware,
-      dashboardListenerMiddleware.middleware
+      dashboardListenerMiddleware.middleware,
+      projectsListenerMiddleware.middleware,
+      dailyListenerMiddleware.middleware
     ),
 });
 
