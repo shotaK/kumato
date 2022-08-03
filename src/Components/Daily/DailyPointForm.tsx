@@ -20,10 +20,12 @@ const DailyPointForm = ({
   title,
   reportType,
   reportsList,
+  placeholder,
 }: {
   title: ReactNode;
   reportType: DailyReportType;
   reportsList: DailyReportItem[];
+  placeholder: string;
 }) => {
   const dispatch = useAppDispatch();
   const { reportsViewMode } = useSelector(dailySelector);
@@ -64,8 +66,8 @@ const DailyPointForm = ({
               setDescription(value);
             }}
             onSubmit={handleAddReportItem}
-            inputPlaceholder={"Enter your daily goal"}
             inputId={`daily-point-form-input-${reportType}`}
+            inputPlaceholder={placeholder}
           />
         </Container>
       )}

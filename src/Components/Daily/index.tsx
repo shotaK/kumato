@@ -32,21 +32,24 @@ const Index = () => {
       </Container>
 
       <DailyPointForm
-        title="What did you do since the last check-in?"
+        title="What did you accomplished since the last check-in?"
         reportType={DailyReportType.accomplished}
         reportsList={accomplishedReportsList}
+        placeholder="Add progress..."
       />
 
       <DailyPointForm
         title="What are gonna do next?"
         reportType={DailyReportType.upcoming}
         reportsList={pendingReportsList}
+        placeholder="Add plans..."
       />
 
       <DailyPointForm
         title="Is anything blocking your progress?"
         reportType={DailyReportType.blocked}
         reportsList={blockedReportsList}
+        placeholder="Add blockers..."
       />
     </>
   );
