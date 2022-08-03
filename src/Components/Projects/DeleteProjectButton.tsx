@@ -13,7 +13,7 @@ const DeleteProjectButton = ({
         openDeleteProjectModal();
       }}
     >
-      <TrashIcon className="invisible w-[17px] text-red-600 ml-1.5 list-item-actionable-delete" />
+      <TrashIcon className="invisible w-[17px] text-red-600 ml-1 list-item-actionable-delete" />
     </button>
   );
 };

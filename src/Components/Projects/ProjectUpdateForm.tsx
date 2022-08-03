@@ -1,17 +1,15 @@
 import React, { ChangeEvent, ReactNode, useState } from "react";
-import { useAppDispatch } from "Domain/Hooks";
-import { addProject, selectProject } from "Domain/Projects/ProjectsSlice";
-import { nanoid } from "@reduxjs/toolkit";
 
 const ProjectUpdateForm = ({
-  onProjectAdd,
+  onSubmit,
   title,
+  initialProjectName = "",
 }: {
-  onProjectAdd?: () => void;
   title?: ReactNode;
+  onSubmit?: ({ projectName }: { projectName: string }) => void;
+  initialProjectName?: string;
 }) => {
-  const dispatch = useAppDispatch();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(initialProjectName);
   const [showError, setShowError] = useState(false);
 
   const nameTooLong = name && name.length > 30;
@@ -20,31 +18,19 @@ const ProjectUpdateForm = ({
     setName(e.target.value);
   };
 
-  const addNewProject = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!name || nameTooLong) {
       setShowError(true);
       return;
     }
-    const projectId = nanoid();
 
-    dispatch(
-      addProject({
-        id: projectId,
-        title: name,
-      })
-    );
-
-    dispatch(selectProject(projectId));
-
-    if (onProjectAdd) {
-      onProjectAdd();
-    }
+    onSubmit({ projectName: name });
   };
 
   return (
-    <form onSubmit={addNewProject}>
+    <form onSubmit={handleSubmit}>
       {title && (
         <label
           className="flex text-lg font-medium leading-6 text-white mb-4"

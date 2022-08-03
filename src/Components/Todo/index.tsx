@@ -9,16 +9,15 @@ import {
 } from "Domain/Todo/TodoSelectors";
 import EmptyTodoListPlaceholder from "Components/Todo/EmptyTodoListPlaceholder";
 import Projects from "Components/Projects";
-import ProjectUpdateForm from "Components/Projects/ProjectUpdateForm";
 import { projectsEmptySelector } from "Domain/Projects/ProjectsSelectors";
 import ContentDelayedSpinner from "Components/Shared/ContentLoader/ContentDelayedSpinner";
+import AddProjectForm from "Components/Projects/AddProjectForm";
 
 const Todo = () => {
   const isTodoListEmpty = useAppSelector(isTodoListEmptySelector);
   const projectsEmpty = useAppSelector(projectsEmptySelector);
   const { defaultTodoDataFetched } = useAppSelector(todoSelector);
 
-  // Todo: switch condition publishing
   if (defaultTodoDataFetched) {
     return <ContentDelayedSpinner />;
   }
@@ -27,7 +26,7 @@ const Todo = () => {
     <div>
       {projectsEmpty ? (
         <Container adjustSpacing>
-          <ProjectUpdateForm title="Create your first project:" />
+          <AddProjectForm title="Create your first project:" />
         </Container>
       ) : (
         <>

@@ -11,11 +11,20 @@ import { selectProject } from "Domain/Projects/ProjectsSlice";
 import DeleteProjectButton from "Components/Projects/DeleteProjectButton";
 import Modal from "Components/Shared/Modal";
 import RemoveProjectForm from "Components/Projects/RemoveProjectForm";
+import { PencilAltIcon } from "@heroicons/react/outline";
+import UpdateProjectModal from "Components/Projects/UpdateProjectModal";
 
 const ProjectSelectBox = () => {
   const projectsList = useAppSelector(projectsListSelector);
   const dispatch = useAppDispatch();
   const selectedProject = useAppSelector(selectedProjectSelector);
+  const [editingProject, setEditingProject] = useState<{
+    open: boolean;
+    project?: Project;
+  }>({
+    open: false,
+    project: null,
+  });
   const [deleteProjectOpen, setDeleteProjectOpen] = useState<{
     open: boolean;
     project?: Project;
@@ -24,11 +33,19 @@ const ProjectSelectBox = () => {
     project: null,
   });
 
+  const closeEditProjectModal = () => {
+    setEditingProject({ open: false, project: null });
+  };
+
+  const openEditProjectModal = ({ project }: { project: Project }) => {
+    setEditingProject({ open: true, project });
+  };
+
   const closeDeleteProjectModal = () => {
     setDeleteProjectOpen({ open: false, project: null });
   };
 
-  const openDeleteProjectModal = ({ project }) => {
+  const openDeleteProjectModal = ({ project }: { project: Project }) => {
     setDeleteProjectOpen({ open: true, project });
   };
 
@@ -41,7 +58,9 @@ const ProjectSelectBox = () => {
       <Listbox value={selectedProject} onChange={handleSelectProject}>
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default rounded-sm bg-coolGray-100 py-1 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selectedProject.title}</span>
+            <span className="block truncate text-sm">
+              {selectedProject.title}
+            </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon
                 className="h-5 w-5 text-gray-400"
@@ -70,7 +89,7 @@ const ProjectSelectBox = () => {
                     <div className="flex list-item-actionable">
                       <div className="flex-1">
                         <span
-                          className={`block truncate ${
+                          className={`block truncate w-40 ${
                             selected ? "font-medium" : "font-normal"
                           }`}
                         >
@@ -82,6 +101,13 @@ const ProjectSelectBox = () => {
                           </span>
                         ) : null}
                       </div>
+
+                      <button
+                        type="button"
+                        onClick={() => openEditProjectModal({ project })}
+                      >
+                        <PencilAltIcon className="invisible w-[17px] text-yellow-600 ml-1 list-item-actionable-delete" />
+                      </button>
 
                       <DeleteProjectButton
                         openDeleteProjectModal={() =>
@@ -96,6 +122,14 @@ const ProjectSelectBox = () => {
           </Transition>
         </div>
       </Listbox>
+
+      <UpdateProjectModal
+        isOpen={editingProject.open}
+        closeModal={closeEditProjectModal}
+        title="Add a new Project"
+        isEditing
+        project={editingProject?.project}
+      />
 
       <Modal
         title="Remove the project permanently?"

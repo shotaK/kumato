@@ -1,17 +1,23 @@
-import React, {ReactNode} from "react";
+import { ReactNode } from "react";
 import Modal from "Components/Shared/Modal";
-import ProjectUpdateForm from "Components/Projects/ProjectUpdateForm";
+import EditProjectForm from "Components/Projects/EditProjectForm";
+import AddProjectForm from "Components/Projects/AddProjectForm";
+import { Project } from "Domain/Projects/Types";
 
 const UpdateProjectModal = ({
   isOpen,
   closeModal,
   sourceElement,
   title,
+  isEditing,
+  project = null,
 }: {
   isOpen: boolean;
   closeModal: () => void;
-  sourceElement: ReactNode;
+  sourceElement?: ReactNode;
   title?: ReactNode;
+  isEditing?: boolean;
+  project?: Project;
 }) => {
   return (
     <Modal
@@ -20,7 +26,11 @@ const UpdateProjectModal = ({
       closeModal={closeModal}
       sourceElement={sourceElement}
     >
-      <ProjectUpdateForm onProjectAdd={closeModal} />
+      {isEditing ? (
+        <EditProjectForm project={project} onProjectEdit={closeModal} />
+      ) : (
+        <AddProjectForm onProjectAdd={closeModal} />
+      )}
     </Modal>
   );
 };

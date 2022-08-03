@@ -15,24 +15,23 @@ const AddProjectButton = () => {
   }
 
   return (
-    <>
-      <UpdateProjectModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        title="Add a new Project"
-        sourceElement={
-          <Tooltip placement="left" overlay={<span>Add new Project</span>}>
-            <button
-              type="button"
-              className="bg-orange-500 px-2 py-1 text-white rounded-sm text-sm h-[28px]"
-              onClick={openModal}
-            >
-              <PlusSmIcon className="h-4 w-4" />
-            </button>
-          </Tooltip>
-        }
-      />
-    </>
+    <UpdateProjectModal
+      isOpen={isOpen}
+      closeModal={closeModal}
+      title="Add a new Project"
+      isEditing={false}
+      sourceElement={
+        <Tooltip placement="left" overlay={<span>Add new Project</span>}>
+          <button
+            type="button"
+            className="bg-orange-500 px-2 py-1 text-white rounded-sm text-sm h-[28px]"
+            onClick={openModal}
+          >
+            <PlusSmIcon className="h-4 w-4" />
+          </button>
+        </Tooltip>
+      }
+    />
   );
 };
 
