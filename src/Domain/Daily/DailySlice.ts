@@ -74,7 +74,7 @@ export const initializeDailyData = () => async (dispatch: ThunkAppDispatch) => {
   );
   const daily = allStorageData?.daily;
 
-  if (isEmpty(daily)) {
+  if (isEmpty(daily?.reportItemsList)) {
     await setDefaultAllStorageSyncData({
       storageApiType: StorageApiType.sync,
       data: { daily: dailyInitialState },

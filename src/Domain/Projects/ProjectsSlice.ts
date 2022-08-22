@@ -94,17 +94,17 @@ export const deleteProjectWithItsItems =
 
 export const initializeProjectData =
   () => async (dispatch: ThunkAppDispatch) => {
-    const allStorageData: { project?: ProjectsState } =
+    const allStorageData: { projects?: ProjectsState } =
       await getAllStorageSyncData(StorageApiType.sync);
-    const project = allStorageData?.project;
+    const projects = allStorageData?.projects;
 
-    if (isEmpty(project)) {
+    if (isEmpty(projects?.projectsList)) {
       await setDefaultAllStorageSyncData({
         storageApiType: StorageApiType.sync,
         data: { projects: projectsInitialState },
       });
     } else {
-      dispatch(provideDefaultProjectStorageData(project));
+      dispatch(provideDefaultProjectStorageData(projects));
     }
   };
 

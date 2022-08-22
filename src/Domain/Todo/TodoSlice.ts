@@ -153,7 +153,7 @@ export const initializeTodoData = () => async (dispatch: ThunkAppDispatch) => {
   );
   const todo = allStorageData?.todo;
 
-  if (isEmpty(todo)) {
+  if (isEmpty(todo?.todoList)) {
     await setDefaultAllStorageSyncData({
       storageApiType: StorageApiType.sync,
       data: { todo: todoInitialState },
