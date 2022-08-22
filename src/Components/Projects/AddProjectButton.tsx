@@ -18,7 +18,7 @@ const AddProjectButton = () => {
     <UpdateProjectModal
       isOpen={isOpen}
       closeModal={closeModal}
-      title="Add a new Project"
+      title={<span className="block pb-2">Add a new Project</span>}
       isEditing={false}
       sourceElement={
         <Tooltip placement="left" overlay={<span>Add new Project</span>}>

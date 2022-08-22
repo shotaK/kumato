@@ -126,7 +126,7 @@ const ProjectSelectBox = () => {
       <UpdateProjectModal
         isOpen={editingProject.open}
         closeModal={closeEditProjectModal}
-        title="Add a new Project"
+        title={<span className="pb-2 block">Update the project</span>}
         isEditing
         project={editingProject?.project}
       />

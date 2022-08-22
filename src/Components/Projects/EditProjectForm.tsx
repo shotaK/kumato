@@ -26,7 +26,7 @@ const EditProjectForm = ({
     onProjectEdit();
   };
 
-  return <ProjectUpdateForm onSubmit={handleEditProject} title={title} initialProjectName={project.title} />;
+  return <ProjectUpdateForm onSubmit={handleEditProject} title={title} initialProjectName={project.title} isEditing />;
 };
 
 export default EditProjectForm;

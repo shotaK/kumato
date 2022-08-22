@@ -32,7 +32,7 @@ const TodoMoveToDailyButton = ({ todo }: { todo: Todo }) => {
 
   return (
     <>
-      <Tooltip placement="left" overlay={<span>Copy to daily reports</span>}>
+      <Tooltip placement="bottom" overlay={<span>Copy to daily</span>}>
         <button onClick={handleClick}>
           <ClipboardCopyIcon className="text-purple-600 w-5 h-5 rotate-180" />
         </button>

@@ -4,10 +4,12 @@ const ProjectUpdateForm = ({
   onSubmit,
   title,
   initialProjectName = "",
+  isEditing = false,
 }: {
   title?: ReactNode;
   onSubmit?: ({ projectName }: { projectName: string }) => void;
   initialProjectName?: string;
+  isEditing?: boolean;
 }) => {
   const [name, setName] = useState(initialProjectName);
   const [showError, setShowError] = useState(false);
@@ -61,7 +63,9 @@ const ProjectUpdateForm = ({
         type="submit"
         className="text-white bg-sky-700 hover:bg-sky-800 flex px-5 py-2 text-white rounded-sm transition-colors duration-300 items-center"
       >
-        <span className="text-sm font-medium">Add</span>
+        <span className="text-sm font-medium">
+          {isEditing ? "Update" : "Add"}
+        </span>
       </button>
     </form>
   );
