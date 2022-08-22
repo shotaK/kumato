@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, MouseEvent } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import {
@@ -18,6 +18,7 @@ const ProjectSelectBox = () => {
   const projectsList = useAppSelector(projectsListSelector);
   const dispatch = useAppDispatch();
   const selectedProject = useAppSelector(selectedProjectSelector);
+
   const [editingProject, setEditingProject] = useState<{
     open: boolean;
     project?: Project;
@@ -25,6 +26,7 @@ const ProjectSelectBox = () => {
     open: false,
     project: null,
   });
+
   const [deleteProjectOpen, setDeleteProjectOpen] = useState<{
     open: boolean;
     project?: Project;
@@ -37,7 +39,14 @@ const ProjectSelectBox = () => {
     setEditingProject({ open: false, project: null });
   };
 
-  const openEditProjectModal = ({ project }: { project: Project }) => {
+  const openEditProjectModal = ({
+    project,
+    event,
+  }: {
+    project: Project;
+    event: MouseEvent<HTMLButtonElement>;
+  }) => {
+    event.stopPropagation();
     setEditingProject({ open: true, project });
   };
 
@@ -104,7 +113,9 @@ const ProjectSelectBox = () => {
 
                       <button
                         type="button"
-                        onClick={() => openEditProjectModal({ project })}
+                        onClick={(event: MouseEvent<HTMLButtonElement>) =>
+                          openEditProjectModal({ event, project })
+                        }
                       >
                         <PencilAltIcon className="invisible w-[17px] text-yellow-600 ml-1 list-item-actionable-delete" />
                       </button>
