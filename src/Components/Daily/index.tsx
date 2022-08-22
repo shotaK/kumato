@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from "Domain/Hooks";
 import ViewButton from "Components/Daily/ViewButton";
 import QuestionTooltip from "Components/Shared/Tooltip/QuestionTooltip";
+import ClearAllReportsButton from "Components/Daily/ClearAllReportsButton";
 
 const Index = () => {
   const accomplishedReportsList = useAppSelector(
@@ -28,7 +29,10 @@ const Index = () => {
           />
         </h3>
 
-        <ViewButton />
+        <div className="flex items-center gap-2">
+          <ClearAllReportsButton />
+          <ViewButton />
+        </div>
       </Container>
 
       <DailyPointForm

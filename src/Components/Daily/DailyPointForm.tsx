@@ -52,7 +52,7 @@ const DailyPointForm = ({
     <div className="mb-6">
       <Container>
         <label
-          className="flex text-white text-md mb-2"
+          className="flex text-white text-base mb-2"
           htmlFor={`daily-point-form-input-${reportType}`}
         >
           {title}

@@ -1,11 +1,15 @@
 import { RootState } from "Domain/Store";
 import { DailyReportType } from "Domain/Daily/Types";
 import { selectedProjectIdSelector } from "Domain/Projects/ProjectsSelectors";
+import isEmpty from "lodash.isempty";
 
 export const dailySelector = (state: RootState) => state.daily;
 
 export const reportsListSelector = (state: RootState) =>
   dailySelector(state).reportItemsList;
+
+export const reportsListEmptySelector = (state: RootState) =>
+  isEmpty(reportsListSelector(state));
 
 export const reportsListByTypeSelector =
   (dailyReportType: DailyReportType) => (state: RootState) => {
