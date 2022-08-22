@@ -11,6 +11,7 @@ projectsListenerMiddleware.startListening({
   },
   effect: async (action, listenerApi) => {
     const state = listenerApi.getState() as RootState;
+
     setDefaultAllStorageSyncData({
       storageApiType: StorageApiType.sync,
       data: {

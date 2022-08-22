@@ -1,6 +1,6 @@
 import { StorageApiType } from "Domain/StorageApi/Types";
 import { localStorageApi, syncStorageApi } from "Domain/StorageApi/Metadata";
-import { syncChromeApi } from "Domain/Todo/TodoStorageApi";
+import { syncChromeApi } from "Domain/StorageApi/StorageApiMock";
 import { localChromeApi } from "Domain/Pomodoro/PomodoroStorageApi";
 
 export const getChromeApiByType = (

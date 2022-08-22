@@ -101,7 +101,7 @@ export const initializeProjectData =
     if (isEmpty(project)) {
       await setDefaultAllStorageSyncData({
         storageApiType: StorageApiType.sync,
-        data: { project: projectsInitialState },
+        data: { projects: projectsInitialState },
       });
     } else {
       dispatch(provideDefaultProjectStorageData(project));

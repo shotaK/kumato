@@ -33,7 +33,7 @@ const ProjectUpdateForm = ({
     <form onSubmit={handleSubmit}>
       {title && (
         <label
-          className="flex text-lg font-medium leading-6 text-white mb-4"
+          className="flex text-lg font-medium leading-6 text-white mb-6"
           htmlFor="project-name"
         >
           {title}

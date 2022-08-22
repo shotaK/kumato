@@ -17,7 +17,7 @@ const Todo = () => {
     <div>
       {projectsEmpty ? (
         <Container adjustSpacing>
-          <AddProjectForm title="Create your first project:" />
+          <AddProjectForm title="Create your first project" />
         </Container>
       ) : (
         <>

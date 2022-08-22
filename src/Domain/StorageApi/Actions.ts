@@ -22,7 +22,7 @@ export const setDefaultAllStorageSyncData = ({
   storageApiType?: StorageApiType;
   data;
 }) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     getApiByType(storageApiType).set(data, () => {
       resolve(data);
     });
