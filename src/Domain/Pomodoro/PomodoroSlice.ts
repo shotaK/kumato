@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import isEmpty from "lodash.isempty";
 
 import { WebsiteBlockable } from "Domain/Pomodoro/Types";
@@ -9,6 +9,7 @@ import {
   getAllStorageSyncData,
   setDefaultAllStorageSyncData,
 } from "Domain/StorageApi/Actions";
+import { getNowTime } from "Utils/time";
 
 export interface PomodoroState {
   remainingSeconds: number;
@@ -22,6 +23,8 @@ export interface PomodoroState {
   breakCompleted: number;
   breakDuration: number;
   breakStarted: boolean;
+
+  lastCycleCompleteTime?: string;
 
   blockableWebsites: WebsiteBlockable[];
 
@@ -40,6 +43,8 @@ export const starterData: PomodoroState = {
   breakCompleted: 0,
   breakDuration: 15,
   breakStarted: false,
+
+  lastCycleCompleteTime: "",
 
   blockableWebsites: [],
 };
@@ -93,27 +98,15 @@ export const pomodoroSlice = createSlice({
       state.currentRunDuration = state.cycleDuration;
     },
 
-    changeRemainingSeconds: (state, action) => {
+    updateRemainingSeconds: (state, action) => {
       state.remainingSeconds = action.payload;
-
-      if (state.remainingSeconds === 0) {
-        if (state.cycleStarted) {
-          state.cycleStarted = false;
-          state.cycleRunning = false;
-          state.cyclesCompleted++;
-        }
-
-        if (state.breakStarted) {
-          state.breakStarted = false;
-          state.breakCompleted++;
-        }
-      }
     },
 
-    completeCycle: (state) => {
+    completeCycle: (state, action: PayloadAction<{ competeTime: string }>) => {
       state.cycleStarted = false;
       state.cycleRunning = false;
       state.cyclesCompleted++;
+      state.lastCycleCompleteTime = action.payload.competeTime;
     },
 
     discardCycle: (state) => {
@@ -208,7 +201,7 @@ export const {
   deleteWebsite,
   updateDefaultStorageDataFetched,
   provideDefaultStorageData,
-  changeRemainingSeconds,
+  updateRemainingSeconds,
 } = pomodoroSlice.actions;
 
 export const initializePomodoroData =
@@ -238,6 +231,24 @@ export const breakStarter =
       remainingSeconds: getState().pomodoro.breakDuration * 60,
     });
     dispatch(startBreak());
+  };
+
+export const changeRemainingSeconds =
+  (remainingSeconds) =>
+  async (dispatch: ThunkAppDispatch, getState: () => RootState) => {
+    dispatch(updateRemainingSeconds(remainingSeconds));
+
+    const { cycleStarted, breakStarted } = getState().pomodoro;
+
+    if (remainingSeconds === 0) {
+      if (cycleStarted) {
+        dispatch(completeCycle({ competeTime: getNowTime() }));
+      }
+
+      if (breakStarted) {
+        dispatch(completeBreak());
+      }
+    }
   };
 
 export default pomodoroSlice.reducer;

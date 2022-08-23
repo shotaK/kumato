@@ -4,6 +4,8 @@ import { calcElapsedTimePercentage } from "Domain/Pomodoro/Utils";
 import { RootState } from "Domain/Store";
 
 export const pomodoroSelector = (state: RootState) => state.pomodoro;
+export const lastCycleEndTimeSelector = (state: RootState) =>
+  pomodoroSelector(state).lastCycleCompleteTime;
 
 export const timeElapsedPercentageSelector = createSelector(
   pomodoroSelector,

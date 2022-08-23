@@ -10,12 +10,12 @@ import {
   resetStats,
 } from "Domain/Pomodoro/PomodoroSlice";
 import { useAppDispatch, useAppSelector } from "Domain/Hooks";
+import LastCycleEndTime from "Components/Pomodoro/Stats/LastCycleEndTime";
 
 const Stats = () => {
   const dispatch = useAppDispatch();
 
-  const { cyclesCompleted, breakCompleted } =
-    useAppSelector(pomodoroSelector);
+  const { cyclesCompleted, breakCompleted } = useAppSelector(pomodoroSelector);
 
   return (
     <div>
@@ -41,11 +41,13 @@ const Stats = () => {
 
       <button
         type="button"
-        className="bg-yellow-600 px-2 py-1 text-white rounded-sm text-sm"
+        className="bg-yellow-600 px-2 py-1 text-white rounded-sm text-sm mb-3"
         onClick={() => dispatch(resetStats())}
       >
         Reset Stats
       </button>
+
+      <LastCycleEndTime />
     </div>
   );
 };

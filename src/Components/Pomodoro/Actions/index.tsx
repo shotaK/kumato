@@ -20,6 +20,7 @@ import {
   pauseCycle,
   resumeCycle,
 } from "Domain/Pomodoro/PomodoroSlice";
+import { getNowTime } from "Utils/time";
 
 const Actions = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,10 @@ const Actions = () => {
     cycleDuration,
     breakDuration,
   } = useAppSelector(pomodoroSelector);
+
+  const handleCompleteCycle = () => {
+    dispatch(completeCycle({ competeTime: getNowTime() }));
+  };
 
   return (
     <div>
@@ -54,7 +59,7 @@ const Actions = () => {
               className="bg-green-500 hover:bg-green-600"
               onClick={() => {
                 if (cycleStarted) {
-                  dispatch(completeCycle());
+                  handleCompleteCycle();
                 }
 
                 if (breakStarted) {

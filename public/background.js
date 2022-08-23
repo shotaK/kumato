@@ -55,6 +55,12 @@ const showNotification = (description) => {
   chrome.notifications.create(notificationOptions);
 };
 
+const getNowTime = () => {
+  const currentDatetime = new Date();
+
+  return `${currentDatetime.getHours()}:${currentDatetime.getMinutes()}:${currentDatetime.getSeconds()}`;
+};
+
 chrome.storage.onChanged.addListener(function (changes) {
   chrome.storage.local.get(
     null,
@@ -121,6 +127,7 @@ chrome.storage.onChanged.addListener(function (changes) {
                 cycleRunning: false,
                 cyclesCompleted: cyclesCompleted + 1,
                 remainingSeconds: 0,
+                lastCycleCompleteTime: getNowTime(),
               });
 
               showNotification(
